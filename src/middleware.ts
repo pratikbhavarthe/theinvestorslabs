@@ -1,24 +1,6 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
-const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
-const isApiRoute = createRouteMatcher(["/api/admin(.*)"]);
-
-export default clerkMiddleware(async (auth, req) => {
-  // Protect admin routes
-  if (isAdminRoute(req) || isApiRoute(req)) {
-    const { userId, sessionClaims } = await auth();
-
-    if (!userId) {
-      return Response.redirect(new URL("/sign-in", req.url));
-    }
-
-    // Check if user has admin role
-    const role = (sessionClaims?.metadata as { role?: string })?.role;
-    if (role !== "admin") {
-      return Response.redirect(new URL("/", req.url));
-    }
-  }
-});
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
