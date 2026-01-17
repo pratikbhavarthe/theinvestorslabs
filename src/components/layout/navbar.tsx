@@ -17,7 +17,8 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-md border-b border-[#E5E7EB]/50 transition-all duration-300">
-      <div className="container">
+      {/* Navbar container matches Hero's wider constraint for vertical alignment */}
+      <div className="w-full max-w-[1536px] mx-auto px-6 md:px-10 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -29,7 +30,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation - Improved gap and centering */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center gap-10 flex-1 px-8">
             {navLinks.map((link) => (
               <Link
@@ -42,7 +43,7 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Actions - Shrink protected */}
+          {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4 shrink-0">
             <SignedOut>
               <SignInButton mode="modal">

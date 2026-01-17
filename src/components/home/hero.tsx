@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -20,22 +20,23 @@ export function Hero() {
           priority
           quality={100}
         />
-        {/* Subtle, airy gradient for readability without masking the architectural beauty */}
-        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/60 via-[#0f172a]/10 to-transparent" />
+        {/* Subtler gradient for readability without masking the architectural beauty */}
+        <div className="absolute inset-0 bg-linear-to-t from-primary/60 via-primary/10 to-transparent" />
       </div>
 
-      {/* Content - Bottom Left Alignment with reduced edge gap for desktop */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end pb-12 md:pb-20">
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-16 border-red-500">
+      {/* Content - Bottom Left Alignment with minimal edge gap for desktop */}
+      <div className="relative z-10 flex-1 flex flex-col justify-end pb-12 md:pb-24">
+        {/* Using a larger max-width and smaller desktop padding to bring content closer to edge */}
+        <div className="w-full max-w-[1536px] mx-auto px-6 md:px-10 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl text-left"
+            className="max-w-3xl text-left"
           >
-            {/* Headline - Plus Jakarta Sans, Bold, Anchored left with NCR elite on one line */}
+            {/* Headline - Plus Jakarta Sans, Bold, Anchored left */}
             <h1
-              className="text-[2.25rem] md:text-[3.5rem] lg:text-[4.5rem] font-bold text-white mb-6 leading-[1.1] tracking-tight"
+              className="text-[2.25rem] md:text-[3.50rem] lg:text-[4.25rem] font-bold text-white mb-6 leading-[1.1] tracking-tight"
               style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
             >
               Elevated living for the modern NCR elite
@@ -50,15 +51,14 @@ export function Hero() {
               Gurgaon&apos;s most prestigious neighborhoods.
             </p>
 
-            {/* Single CTA - Anchored clearly */}
+            {/* Interactive CTA - Anchored clearly to the left boundary */}
             <div className="flex items-start">
-              <Button
+              <InteractiveHoverButton
                 onClick={() => router.push("/properties")}
-                size="lg"
-                className="bg-white hover:bg-neutral-100 text-[#0f172a] h-14 px-10 rounded-full font-bold transition-all shadow-xl text-[1rem]"
+                className="h-14 px-10 bg-white"
               >
-                Available Properties →
-              </Button>
+                Available Properties
+              </InteractiveHoverButton>
             </div>
           </motion.div>
         </div>
