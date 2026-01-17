@@ -1,9 +1,4 @@
 @import "tailwindcss";
-@import "@fontsource/plus-jakarta-sans/300.css";
-@import "@fontsource/plus-jakarta-sans/400.css";
-@import "@fontsource/plus-jakarta-sans/500.css";
-@import "@fontsource/plus-jakarta-sans/600.css";
-@import "@fontsource/plus-jakarta-sans/700.css";
 
 /* ============================================
    Design Tokens & CSS Custom Properties
@@ -34,9 +29,7 @@
   --color-success: #047857;
   --color-error: #dc2626;
 
-  /* Typography */
-  --font-sans:
-    "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  /* Typography is handled by Next.js fonts in layout.tsx */
 
   /* Spacing (8px system) */
   --spacing-1: 0.5rem; /* 8px */
