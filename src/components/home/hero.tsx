@@ -37,15 +37,21 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Headline - High Impact, Centered */}
-          <h1 className="font-sans text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold text-white mb-6 leading-[1.1] tracking-tight">
+          {/* Headline - Plus Jakarta Sans enforced via class and global styles */}
+          <h1
+            className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold text-white mb-6 leading-[1.1] tracking-tight"
+            style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+          >
             Elevated living for the{" "}
             <span className="italic font-light opacity-90">modern</span> NCR
             elite
           </h1>
 
-          {/* Subheader - Professional & Informative */}
-          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium">
+          {/* Subheader - Plus Jakarta Sans enforced via style for safety */}
+          <p
+            className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium"
+            style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+          >
             Smart, strategic real estate guidance across Noida & Gurgaon&apos;s
             most prestigious neighborhoods.
           </p>
@@ -65,7 +71,7 @@ export function Hero() {
               size="lg"
               className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 h-14 px-10 rounded-full font-bold transition-all text-[1rem]"
             >
-              Explore Designs
+              Explore Properties
             </Button>
           </div>
         </motion.div>
@@ -79,7 +85,10 @@ export function Hero() {
         >
           {stats.map((stat, index) => (
             <div key={index} className="flex flex-col items-center">
-              <span className="text-white text-2xl md:text-3xl font-bold mb-1 tracking-tight">
+              <span
+                className="text-white text-2xl md:text-3xl font-bold mb-1 tracking-tight"
+                style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+              >
                 {stat.value}
               </span>
               <span className="text-white/50 text-xs md:text-sm font-medium uppercase tracking-widest">

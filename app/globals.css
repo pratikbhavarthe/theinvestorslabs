@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Define the brand font variable */
-  --font-plus-jakarta:
-    "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Map Tailwind's sans font to our brand font variable from Next.js */
+  --font-sans:
+    var(--font-plus-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui,
+    sans-serif;
 
   --color-primary: #0f172a;
   --color-primary-light: #1e293b;
@@ -23,8 +24,8 @@
 
 @layer base {
   body {
-    /* Correctly inherit the Next.js font variable */
-    font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", sans-serif;
+    /* Hard-enforce the font-sans variable on the body */
+    font-family: var(--font-sans);
     color: var(--color-text-primary);
     background-color: var(--color-bg);
     line-height: 1.6;
@@ -37,8 +38,10 @@
   h4,
   h5,
   h6 {
-    /* headings must use the brand font */
-    font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", sans-serif;
+    /* headings must strictly use the brand font */
+    font-family: var(--font-sans);
+    color: var(--color-text-primary);
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
 }
