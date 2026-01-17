@@ -17,25 +17,25 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="w-full max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-[#0f172a] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">IL</span>
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-[#0f172a] rounded-xl flex items-center justify-center text-white font-bold text-xl">
+              IL
             </div>
-            <span className="text-xl font-bold text-[#111827] hidden sm:block">
+            <span className="text-xl font-bold text-[#111827] hidden sm:block tracking-tight">
               The Investor Labs
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[#6B7280] hover:text-[#0f172a] font-medium transition-colors text-[15px]"
+                className="text-[#6B7280] hover:text-[#0f172a] font-medium transition-all text-[15px]"
               >
                 {link.label}
               </Link>
@@ -43,22 +43,18 @@ export function Navbar() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center gap-4">
             <SignedOut>
               <SignInButton mode="modal">
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className="text-[#6B7280] hover:text-[#0f172a]"
+                  className="text-[#6B7280] hover:text-[#0f172a] font-medium"
                 >
                   Login
                 </Button>
               </SignInButton>
               <Link href="/properties">
-                <Button
-                  size="sm"
-                  className="bg-[#0f172a] hover:bg-[#1e293b] text-white h-11 px-6 rounded-xl"
-                >
+                <Button className="bg-[#0f172a] hover:bg-[#1e293b] text-white h-11 px-6 rounded-xl font-semibold shadow-sm transition-all">
                   Explore Properties
                 </Button>
               </Link>
@@ -67,8 +63,7 @@ export function Navbar() {
               <Link href="/admin">
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className="text-[#6B7280] hover:text-[#0f172a]"
+                  className="text-[#6B7280] hover:text-[#0f172a] font-medium"
                 >
                   Dashboard
                 </Button>
@@ -117,24 +112,24 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-[#E5E7EB]">
-            <div className="flex flex-col space-y-4">
+          <div className="md:hidden py-6 border-t border-[#E5E7EB]">
+            <div className="flex flex-col gap-5">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-[#6B7280] hover:text-[#0f172a] font-medium py-2 text-[15px]"
+                  className="text-[#6B7280] hover:text-[#0f172a] font-medium text-[16px]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-[#E5E7EB] space-y-3">
+              <div className="pt-6 border-t border-[#E5E7EB] flex flex-col gap-4">
                 <SignedOut>
                   <SignInButton mode="modal">
                     <Button
                       variant="outline"
-                      className="w-full border-[#E5E7EB] text-[#111827]"
+                      className="w-full border-[#E5E7EB] text-[#111827] h-12 rounded-xl"
                     >
                       Login
                     </Button>
@@ -143,7 +138,7 @@ export function Navbar() {
                     href="/properties"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Button className="w-full bg-[#0f172a] hover:bg-[#1e293b] text-white h-11">
+                    <Button className="w-full bg-[#0f172a] hover:bg-[#1e293b] text-white h-12 rounded-xl">
                       Explore Properties
                     </Button>
                   </Link>
@@ -155,7 +150,7 @@ export function Navbar() {
                   >
                     <Button
                       variant="outline"
-                      className="w-full border-[#E5E7EB] text-[#111827]"
+                      className="w-full border-[#E5E7EB] text-[#111827] h-12 rounded-xl"
                     >
                       Dashboard
                     </Button>

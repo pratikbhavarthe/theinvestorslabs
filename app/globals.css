@@ -1,264 +1,67 @@
 @import "tailwindcss";
 
-/* ============================================
-   Design Tokens & CSS Custom Properties
-   Following UI/Typography Ruleset
-   ============================================ */
+@theme {
+  /* Explicitly define the font stack to match Plus Jakarta Sans */
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
-:root {
-  /* Colors - Primary (Deep Navy Blue) */
   --color-primary: #0f172a;
   --color-primary-light: #1e293b;
   --color-primary-lighter: #334155;
 
-  /* Colors - Secondary (Emerald Green) */
   --color-secondary: #047857;
   --color-secondary-light: #059669;
   --color-secondary-lighter: #10b981;
 
-  /* Colors - Accent (Gold) */
   --color-accent: #c9a227;
 
-  /* Colors - Neutral */
   --color-text-primary: #111827;
   --color-text-secondary: #6b7280;
   --color-border: #e5e7eb;
   --color-bg: #f9fafb;
-
-  /* Semantic Colors */
-  --color-success: #047857;
-  --color-error: #dc2626;
-
-  /* Typography is handled by Next.js fonts in layout.tsx */
-
-  /* Spacing (8px system) */
-  --spacing-1: 0.5rem; /* 8px */
-  --spacing-2: 1rem; /* 16px */
-  --spacing-3: 1.5rem; /* 24px */
-  --spacing-4: 2rem; /* 32px */
-  --spacing-6: 3rem; /* 48px */
-  --spacing-10: 5rem; /* 80px */
-  --spacing-12: 6rem; /* 96px */
-
-  /* Border Radius */
-  --radius-sm: 0.5rem; /* 8px */
-  --radius-md: 0.625rem; /* 10px */
-  --radius-lg: 0.75rem; /* 12px */
-  --radius-xl: 1rem; /* 16px */
-
-  /* Shadows */
-  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* ============================================
-   Base Styles
-   ============================================ */
+@layer base {
+  body {
+    /* Use the variable injected by Next.js if available, otherwise fall back to the theme one */
+    font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-body {
-  font-family: var(--font-sans);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg);
-  line-height: 1.6;
-  font-size: 0.9375rem; /* 15px */
-}
-
-/* ============================================
-   Typography (Following Ruleset)
-   ============================================ */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--color-text-primary);
-  font-weight: 600;
-}
-
-/* H1: 40-48px, weight 700, line-height 1.2 */
-h1 {
-  font-size: 2.5rem; /* 40px */
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-@media (min-width: 768px) {
-  h1 {
-    font-size: 3rem; /* 48px */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
-/* H2: 32-36px, weight 600, line-height 1.3 */
-h2 {
-  font-size: 2rem; /* 32px */
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-@media (min-width: 768px) {
-  h2 {
-    font-size: 2.25rem; /* 36px */
-  }
-}
-
-/* H3: 24-28px, weight 600, line-height 1.35 */
-h3 {
-  font-size: 1.5rem; /* 24px */
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-@media (min-width: 768px) {
-  h3 {
-    font-size: 1.75rem; /* 28px */
-  }
-}
-
-/* H4: 20-22px, weight 600, line-height 1.4 */
-h4 {
-  font-size: 1.25rem; /* 20px */
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-@media (min-width: 768px) {
-  h4 {
-    font-size: 1.375rem; /* 22px */
-  }
-}
-
-/* Body text: 15-16px, weight 400, line-height 1.6 */
-p {
-  font-size: 0.9375rem; /* 15px */
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--color-text-primary);
-  margin-bottom: 1rem;
-  max-width: 72ch; /* 60-72 characters per line */
-}
-
-/* Small text / Labels: 13-14px, weight 500, line-height 1.5 */
-small,
-.text-small {
-  font-size: 0.875rem; /* 14px */
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--color-text-secondary);
-}
-
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-a:hover {
-  color: var(--color-primary-light);
-}
-
-/* ============================================
-   Utility Classes
-   ============================================ */
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem; /* 16px mobile */
-  padding-right: 1rem;
-}
-
-@media (min-width: 768px) {
+@layer utilities {
   .container {
-    padding-left: 3rem; /* 48px tablet */
-    padding-right: 3rem;
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
-}
 
-@media (min-width: 1280px) {
-  .container {
-    padding-left: 5rem; /* 80px desktop */
-    padding-right: 5rem;
+  @media (min-width: 768px) {
+    .container {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
   }
-}
 
-.section {
-  padding-top: 5rem; /* 80px */
-  padding-bottom: 5rem;
-}
-
-@media (min-width: 768px) {
-  .section {
-    padding-top: 7.5rem; /* 120px */
-    padding-bottom: 7.5rem;
+  @media (min-width: 1280px) {
+    .container {
+      padding-left: 6rem;
+      padding-right: 6rem;
+    }
   }
-}
-
-/* ============================================
-   Responsive Images
-   ============================================ */
-
-img,
-video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ============================================
-   Focus Styles (Accessibility - WCAG AA)
-   ============================================ */
-
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-/* ============================================
-   Loading States
-   ============================================ */
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
