@@ -17,25 +17,15 @@ export function Hero() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-primary-50 via-white to-secondary-50 overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-10">
-        <svg viewBox="0 0 400 400" className="w-full h-full">
-          <circle
-            cx="300"
-            cy="100"
-            r="150"
-            fill="currentColor"
-            className="text-primary-300"
-          />
-          <circle
-            cx="350"
-            cy="250"
-            r="100"
-            fill="currentColor"
-            className="text-secondary-300"
-          />
-        </svg>
+    <section className="relative bg-neutral-900 overflow-hidden min-h-[600px] md:min-h-[700px]">
+      {/* Background Image with Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url(/hero-bg.jpg)",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/70 to-neutral-900/50" />
       </div>
 
       <div className="container relative z-10 py-16 md:py-24 lg:py-32">
@@ -43,13 +33,13 @@ export function Hero() {
           {/* Left Content */}
           <div>
             {/* Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
               Find Houses, Apartments and Flats in{" "}
-              <span className="text-primary-600">Noida & Gurgaon</span>
+              <span className="text-accent-400">Noida & Gurgaon</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg md:text-xl text-neutral-600 mb-8">
+            <p className="text-lg md:text-xl text-neutral-200 mb-8">
               Verified Properties for Verified Tenants
             </p>
 
@@ -104,10 +94,8 @@ export function Hero() {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-primary-600">
-                    50k+
-                  </div>
-                  <div className="text-sm text-neutral-600">
+                  <div className="text-2xl font-bold text-white">50k+</div>
+                  <div className="text-sm text-neutral-300">
                     Satisfied Renters
                   </div>
                 </div>
@@ -130,77 +118,15 @@ export function Hero() {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-secondary-600">
-                    10k+
-                  </div>
-                  <div className="text-sm text-neutral-600">Apartments</div>
+                  <div className="text-2xl font-bold text-white">10k+</div>
+                  <div className="text-sm text-neutral-300">Apartments</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Illustration */}
-          <div className="hidden lg:block">
-            <div className="relative">
-              <svg viewBox="0 0 500 400" className="w-full h-auto">
-                {/* House illustration */}
-                <rect
-                  x="150"
-                  y="150"
-                  width="200"
-                  height="200"
-                  fill="#3b82f6"
-                  opacity="0.1"
-                  rx="8"
-                />
-                <rect
-                  x="170"
-                  y="170"
-                  width="160"
-                  height="160"
-                  fill="#3b82f6"
-                  opacity="0.2"
-                  rx="8"
-                />
-                <path
-                  d="M250 120 L350 180 L350 330 L150 330 L150 180 Z"
-                  fill="#2563eb"
-                  opacity="0.3"
-                />
-
-                {/* People illustration */}
-                <circle cx="200" cy="280" r="20" fill="#f59e0b" />
-                <rect
-                  x="185"
-                  y="300"
-                  width="30"
-                  height="50"
-                  fill="#f59e0b"
-                  rx="4"
-                />
-
-                <circle cx="250" cy="280" r="20" fill="#10b981" />
-                <rect
-                  x="235"
-                  y="300"
-                  width="30"
-                  height="50"
-                  fill="#10b981"
-                  rx="4"
-                />
-
-                <circle cx="300" cy="280" r="20" fill="#3b82f6" />
-                <rect
-                  x="285"
-                  y="300"
-                  width="30"
-                  height="50"
-                  fill="#3b82f6"
-                  rx="4"
-                />
-              </svg>
-            </div>
-          </div>
+          {/* Right side - empty for background image visibility */}
+          <div className="hidden lg:block" />
         </div>
       </div>
     </section>
