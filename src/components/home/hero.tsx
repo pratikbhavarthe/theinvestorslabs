@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export function Hero() {
   const router = useRouter();
@@ -19,12 +20,15 @@ export function Hero() {
   return (
     <section className="relative bg-neutral-900 overflow-hidden min-h-[600px] md:min-h-[700px]">
       {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url(/hero-bg.jpg)",
-        }}
-      >
+      <div className="absolute inset-0">
+        <Image
+          src="/hero-bg.jpg"
+          alt="Real estate background"
+          fill
+          className="object-cover"
+          priority
+          quality={90}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/70 to-neutral-900/50" />
       </div>
 
