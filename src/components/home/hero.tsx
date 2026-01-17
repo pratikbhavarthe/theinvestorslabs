@@ -24,8 +24,8 @@ export function Hero() {
       </div>
 
       {/* Content - Proper container structure */}
-      <div className="relative z-10 h-full flex items-center">
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-8 lg:px-16 py-20">
+      <div className="relative z-10 h-full flex items-start pt-32">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-8 lg:px-16">
           <motion.div
             className="max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
