@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.36.8",
+    "@fontsource/plus-jakarta-sans": "^5.2.8",
     "@neondatabase/serverless": "^1.0.2",
     "@paralleldrive/cuid2": "^3.0.6",
     "@radix-ui/react-select": "^2.2.6",

@@ -33,25 +33,25 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
   };
 
   return (
-    <section className="section bg-neutral-50">
+    <section className="py-20 md:py-32 bg-[#F9FAFB]">
       <div className="container">
-        {/* Section Header */}
+        {/* Section Header - H2: 32-36px, weight 600 */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+          <h2 className="text-[2rem] md:text-[2.25rem] font-semibold text-[#111827] mb-4 leading-[1.3]">
             Featured Properties
           </h2>
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+          <p className="text-[1rem] text-[#6B7280] max-w-2xl mx-auto leading-[1.6]">
             Handpicked premium properties in prime locations
           </p>
         </div>
 
-        {/* Property Grid */}
+        {/* Property Grid - 24-32px gap */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {properties.map((property) => (
             <Link key={property.id} href={`/properties/${property.id}`}>
-              <Card className="group hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full">
+              <Card className="group hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-shadow duration-300 overflow-hidden h-full border-[#E5E7EB] rounded-xl">
                 {/* Property Image */}
-                <div className="relative h-64 overflow-hidden bg-neutral-200">
+                <div className="relative h-64 overflow-hidden bg-[#F9FAFB]">
                   {property.images && property.images.length > 0 ? (
                     <Image
                       src={property.images[0]}
@@ -60,12 +60,14 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-neutral-300">
-                      <span className="text-neutral-500">No Image</span>
+                    <div className="w-full h-full flex items-center justify-center bg-[#F9FAFB]">
+                      <span className="text-[#6B7280] text-[0.875rem]">
+                        No Image
+                      </span>
                     </div>
                   )}
 
-                  {/* Status Badge */}
+                  {/* Status Badge - Emerald Green for Available */}
                   <div className="absolute top-4 right-4">
                     <Badge
                       variant={
@@ -73,7 +75,11 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
                           ? "default"
                           : "secondary"
                       }
-                      className="bg-white/90 text-neutral-900"
+                      className={`${
+                        property.status === "Available"
+                          ? "bg-[#047857] text-white"
+                          : "bg-white/90 text-[#111827]"
+                      } text-[0.8125rem] font-medium px-3 py-1`}
                     >
                       {property.status}
                     </Badge>
@@ -81,18 +87,18 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
                 </div>
 
                 <CardContent className="p-6">
-                  {/* Property Type */}
-                  <div className="text-sm text-primary-600 font-semibold mb-2">
+                  {/* Property Type - Small text: 13-14px */}
+                  <div className="text-[0.875rem] text-[#047857] font-semibold mb-2">
                     {property.propertyType}
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-neutral-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                  {/* Title - H3: 24-28px */}
+                  <h3 className="text-[1.5rem] font-semibold text-[#111827] mb-2 line-clamp-2 group-hover:text-[#0f172a] transition-colors leading-[1.35]">
                     {property.title}
                   </h3>
 
-                  {/* Location */}
-                  <p className="text-neutral-600 mb-4 flex items-center gap-2">
+                  {/* Location - Body text: 15px */}
+                  <p className="text-[0.9375rem] text-[#6B7280] mb-4 flex items-center gap-2">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -115,8 +121,8 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
                     {property.sector}, {property.city}
                   </p>
 
-                  {/* Price */}
-                  <div className="text-2xl font-bold text-primary-700">
+                  {/* Price - H4: 20-22px */}
+                  <div className="text-[1.375rem] font-semibold text-[#0f172a]">
                     {formatPrice(property.price)}
                   </div>
                 </CardContent>
@@ -125,11 +131,11 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
           ))}
         </div>
 
-        {/* View All Button */}
+        {/* View All Button - Button: 44-48px height */}
         <div className="text-center mt-12">
           <Link
             href="/properties"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 h-12 px-8 bg-[#0f172a] hover:bg-[#1e293b] text-white font-semibold rounded-xl transition-colors text-[15px]"
           >
             View All Properties
             <svg

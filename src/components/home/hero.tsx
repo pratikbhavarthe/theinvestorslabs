@@ -18,7 +18,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative bg-neutral-900 overflow-hidden min-h-[600px] md:min-h-[700px]">
+    <section className="relative bg-[#0f172a] overflow-hidden min-h-[600px] md:min-h-[700px]">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <Image
@@ -29,29 +29,29 @@ export function Hero() {
           priority
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/70 to-neutral-900/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/95 via-[#0f172a]/80 to-[#0f172a]/60" />
       </div>
 
       <div className="container relative z-10 py-16 md:py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div>
-            {/* Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+            {/* Headline - H1: 40-48px, weight 700 */}
+            <h1 className="text-[2.5rem] md:text-[3rem] font-bold text-white mb-6 leading-[1.2]">
               Find Houses, Apartments and Flats in{" "}
-              <span className="text-accent-400">Noida & Gurgaon</span>
+              <span className="text-[#C9A227]">Noida & Gurgaon</span>
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-lg md:text-xl text-neutral-200 mb-8">
+            {/* Subheadline - Body text: 15-16px */}
+            <p className="text-[1rem] text-white/90 mb-8 leading-[1.6]">
               Verified Properties for Verified Tenants
             </p>
 
-            {/* Search Bar */}
-            <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-8">
+            {/* Search Bar - Card with proper padding */}
+            <div className="bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] p-6 mb-8">
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex-1">
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-[0.875rem] font-medium text-[#6B7280] mb-2">
                     Location
                   </label>
                   <select
@@ -59,7 +59,7 @@ export function Hero() {
                     onChange={(e) =>
                       setCity(e.target.value as "Noida" | "Gurgaon" | "")
                     }
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-300 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
+                    className="w-full h-11 px-4 rounded-lg border border-[#E5E7EB] text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#0f172a] bg-white text-[15px]"
                   >
                     <option value="">Select City</option>
                     <option value="Noida">Noida</option>
@@ -71,7 +71,7 @@ export function Hero() {
                   <Button
                     onClick={handleSearch}
                     size="lg"
-                    className="w-full sm:w-auto bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                    className="w-full sm:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white h-12 px-8 rounded-xl font-semibold transition-colors text-[15px]"
                   >
                     Search
                   </Button>
@@ -79,12 +79,12 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Stats */}
+            {/* Stats - Using Emerald Green for success indicators */}
             <div className="grid grid-cols-2 gap-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#047857]/10 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-primary-600"
+                    className="w-6 h-6 text-[#047857]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -99,16 +99,16 @@ export function Hero() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-white">50k+</div>
-                  <div className="text-sm text-neutral-300">
+                  <div className="text-[0.875rem] text-white/70">
                     Satisfied Renters
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#047857]/10 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-secondary-600"
+                    className="w-6 h-6 text-[#047857]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -123,7 +123,9 @@ export function Hero() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-white">10k+</div>
-                  <div className="text-sm text-neutral-300">Apartments</div>
+                  <div className="text-[0.875rem] text-white/70">
+                    Apartments
+                  </div>
                 </div>
               </div>
             </div>
