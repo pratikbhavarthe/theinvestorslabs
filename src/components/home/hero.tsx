@@ -54,8 +54,8 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Subtle bottom fade - reduced opacity */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
+      {/* Subtle bottom fade - smoother gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/40 to-transparent pointer-events-none" />
     </section>
   );
 }
