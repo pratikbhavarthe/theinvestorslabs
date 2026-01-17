@@ -8,14 +8,8 @@ import { motion } from "framer-motion";
 export function Hero() {
   const router = useRouter();
 
-  const stats = [
-    { label: "Verified Listings", value: "450+" },
-    { label: "Happy Families", value: "1.2k+" },
-    { label: "Premium Projects", value: "85+" },
-  ];
-
   return (
-    <section className="relative bg-[#0f172a] overflow-hidden h-[90vh] min-h-[750px] flex flex-col items-center justify-center">
+    <section className="relative bg-[#0f172a] overflow-hidden h-[85vh] min-h-[600px] flex flex-col">
       {/* Background Image with Dark Professional Overlay */}
       <div className="absolute inset-0">
         <Image
@@ -26,81 +20,49 @@ export function Hero() {
           priority
           quality={100}
         />
-        {/* Radial gradient to pull focus to the center content */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f172a]/40 to-[#0f172a]/80" />
+        {/* Dark overlay for readability, especially at the bottom where text will sit */}
+        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/90 via-[#0f172a]/20 to-transparent" />
       </div>
 
-      {/* Content - Centered & Refined */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          {/* Headline - Plus Jakarta Sans enforced via class and global styles */}
-          <h1
-            className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold text-white mb-6 leading-[1.1] tracking-tight"
-            style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+      {/* Content - Bottom Left Alignment */}
+      <div className="relative z-10 flex-1 flex flex-col justify-end pb-12 md:pb-20">
+        <div className="container px-6 md:px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-3xl text-left"
           >
-            Elevated living for the{" "}
-            <span className="italic font-light opacity-90">modern</span> NCR
-            elite
-          </h1>
-
-          {/* Subheader - Plus Jakarta Sans enforced via style for safety */}
-          <p
-            className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium"
-            style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
-          >
-            Smart, strategic real estate guidance across Noida & Gurgaon&apos;s
-            most prestigious neighborhoods.
-          </p>
-
-          {/* Dual CTAs - Centered */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Button
-              onClick={() => router.push("/contact")}
-              size="lg"
-              className="w-full sm:w-auto bg-white hover:bg-neutral-100 text-[#0f172a] h-14 px-10 rounded-full font-bold transition-all shadow-xl text-[1rem]"
+            {/* Headline - Plus Jakarta Sans, Refined Scale & Weight */}
+            <h1
+              className="text-[2.25rem] md:text-[3.25rem] lg:text-[4rem] font-bold text-white mb-6 leading-[1.15] tracking-tight"
+              style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
             >
-              Get a Consultation
-            </Button>
-            <Button
-              onClick={() => router.push("/properties")}
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 h-14 px-10 rounded-full font-bold transition-all text-[1rem]"
-            >
-              Explore Properties
-            </Button>
-          </div>
-        </motion.div>
+              Elevated living for the modern NCR elite
+            </h1>
 
-        {/* Stats Section - Bottom Anchored */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="grid grid-cols-3 gap-8 py-8 border-t border-white/10"
-        >
-          {stats.map((stat, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <span
-                className="text-white text-2xl md:text-3xl font-bold mb-1 tracking-tight"
-                style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+            {/* Subheader - Professional & Readable */}
+            <p
+              className="text-white/80 text-base md:text-lg max-w-2xl mb-10 font-medium leading-relaxed"
+              style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+            >
+              Smart, strategic real estate guidance across Noida &
+              Gurgaon&apos;s most prestigious neighborhoods.
+            </p>
+
+            {/* Single CTA - Matches request */}
+            <div className="flex items-start">
+              <Button
+                onClick={() => router.push("/properties")}
+                size="lg"
+                className="bg-white hover:bg-neutral-100 text-[#0f172a] h-14 px-10 rounded-full font-bold transition-all shadow-xl text-[1rem]"
               >
-                {stat.value}
-              </span>
-              <span className="text-white/50 text-xs md:text-sm font-medium uppercase tracking-widest">
-                {stat.label}
-              </span>
+                Available Properties →
+              </Button>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
-
-      {/* Subtle bottom fade for section continuity */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-[#0f172a] to-transparent pointer-events-none" />
     </section>
   );
 }
