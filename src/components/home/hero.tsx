@@ -20,24 +20,24 @@ export function Hero() {
           priority
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-white/40 via-white/20 to-transparent" />
       </div>
 
-      {/* Content - Using container class with proper padding */}
-      <div className="container relative z-10 h-full flex items-center">
+      {/* Content - Proper container with spacing */}
+      <div className="container relative z-10 h-full flex items-center py-20">
         <motion.div
           className="max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {/* Headline - H1: 40-48px per ruleset */}
-          <h1 className="text-[2.5rem] md:text-[3rem] font-bold text-[#0f172a] mb-6 leading-[1.1]">
+          {/* Headline - H1: 40-48px, max-width for readability */}
+          <h1 className="text-[2.5rem] md:text-[3rem] font-bold text-[#0f172a] mb-8 leading-[1.1] max-w-[20ch]">
             A <span className="italic font-light">trusted</span> real estate
             partner
           </h1>
 
-          {/* CTA Button - 44-48px height per ruleset */}
+          {/* CTA Button - Proper spacing from heading (24px = mb-8) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -55,7 +55,7 @@ export function Hero() {
       </div>
 
       {/* Subtle bottom fade - smoother gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/40 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-white via-white/40 to-transparent pointer-events-none" />
     </section>
   );
 }
