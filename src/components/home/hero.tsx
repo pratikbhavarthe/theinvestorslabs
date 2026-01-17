@@ -20,8 +20,8 @@ export function Hero() {
           priority
           quality={100}
         />
-        {/* Dark overlay for readability, especially at the bottom where text will sit */}
-        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/90 via-[#0f172a]/20 to-transparent" />
+        {/* Subtler gradient for readability without masking the architectural beauty */}
+        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/60 via-[#0f172a]/10 to-transparent" />
       </div>
 
       {/* Content - Bottom Left Alignment */}
