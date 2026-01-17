@@ -17,10 +17,10 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] shadow-sm">
-      <div className="w-full max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24">
+      <div className="container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 bg-[#0f172a] rounded-xl flex items-center justify-center text-white font-bold text-xl">
               IL
             </div>
@@ -29,8 +29,8 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-10">
+          {/* Desktop Navigation - Improved gap and centering */}
+          <div className="hidden md:flex items-center justify-center gap-10 flex-1 px-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -42,8 +42,8 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop Actions - Shrink protected */}
+          <div className="hidden md:flex items-center gap-4 shrink-0">
             <SignedOut>
               <SignInButton mode="modal">
                 <Button
@@ -54,7 +54,7 @@ export function Navbar() {
                 </Button>
               </SignInButton>
               <Link href="/properties">
-                <Button className="bg-[#0f172a] hover:bg-[#1e293b] text-white h-11 px-6 rounded-xl font-semibold shadow-sm transition-all">
+                <Button className="bg-[#0f172a] hover:bg-[#1e293b] text-white h-11 px-6 rounded-xl font-semibold shadow-sm transition-all whitespace-nowrap">
                   Explore Properties
                 </Button>
               </Link>
