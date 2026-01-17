@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
+import { Introduction } from "@/components/home/introduction";
 import { FeaturedProperties } from "@/components/home/featured-properties";
 import { TrustSignals } from "@/components/home/trust-signals";
 import { LeadForm } from "@/components/home/lead-form";
@@ -48,6 +49,9 @@ export default async function HomePage() {
       {/* Hero Section */}
       <Hero />
 
+      {/* Introduction Section */}
+      <Introduction />
+
       {/* Featured Properties */}
       {featuredProperties.length > 0 && (
         <FeaturedProperties properties={featuredProperties} />
@@ -57,19 +61,7 @@ export default async function HomePage() {
       <TrustSignals />
 
       {/* Lead Form Section */}
-      <section className="section bg-neutral-100">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-              Ready to Find Your Dream Property?
-            </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Get in touch with our experts today
-            </p>
-          </div>
-          <LeadForm />
-        </div>
-      </section>
+      <LeadForm />
     </main>
   );
 }

@@ -9,7 +9,7 @@ export function Hero() {
   const router = useRouter();
 
   return (
-    <section className="relative bg-[#0f172a] overflow-hidden h-[85vh] min-h-[600px] flex flex-col">
+    <section className="relative bg-[#0f172a] overflow-hidden h-screen min-h-[600px] flex flex-col">
       {/* Background Image with Dark Professional Overlay */}
       <div className="absolute inset-0">
         <Image
