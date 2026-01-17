@@ -16,7 +16,7 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-md border-b border-[#E5E7EB]/50 transition-all duration-300">
       <div className="container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
