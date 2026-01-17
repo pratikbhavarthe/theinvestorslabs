@@ -8,68 +8,90 @@ import { motion } from "framer-motion";
 export function Hero() {
   const router = useRouter();
 
+  const stats = [
+    { label: "Verified Listings", value: "450+" },
+    { label: "Happy Families", value: "1.2k+" },
+    { label: "Premium Projects", value: "85+" },
+  ];
+
   return (
-    <section className="relative bg-white overflow-hidden h-[80vh] min-h-[600px] flex flex-col">
-      {/* Background Image with Sophisticated Overlay */}
+    <section className="relative bg-[#0f172a] overflow-hidden h-[90vh] min-h-[750px] flex flex-col items-center justify-center">
+      {/* Background Image with Dark Professional Overlay */}
       <div className="absolute inset-0">
         <Image
           src="/hero-bg.jpg"
-          alt="NCR Real Estate Strategic Guidance"
+          alt="Premium Real Estate NCR"
           fill
-          className="object-cover"
+          className="object-cover opacity-60"
           priority
           quality={100}
         />
-        {/* Subtle, airy white overlay from left for high-end readability */}
-        <div className="absolute inset-0 bg-linear-to-r from-white/60 via-white/20 to-transparent" />
+        {/* Radial gradient to pull focus to the center content */}
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f172a]/40 to-[#0f172a]/80" />
       </div>
 
-      {/* Content - 12 Column Grid - Reduced scale for elegance */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center">
-        <div className="container">
-          <div className="grid grid-cols-12 gap-6">
-            {/* Left column - Content anchored with breathing room */}
-            <div className="col-span-12 md:col-span-10 lg:col-span-8 xl:col-span-6">
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="flex flex-col items-start text-left"
-              >
-                {/* Headline - Punchy, India-focused, restored to elegant scale */}
-                <h1 className="font-sans text-[2.75rem] md:text-[3.5rem] lg:text-[4.50rem] font-bold text-[#0f172a] mb-8 leading-[1.1] tracking-tight">
-                  Strategic guidance for{" "}
-                  <span className="italic font-light text-[#0f172a]/70">
-                    Noida & Gurgaon
-                  </span>{" "}
-                  real estate
-                </h1>
+      {/* Content - Centered & Refined */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {/* Headline - High Impact, Centered */}
+          <h1 className="font-sans text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold text-white mb-6 leading-[1.1] tracking-tight">
+            Elevated living for the{" "}
+            <span className="italic font-light opacity-90">modern</span> NCR
+            elite
+          </h1>
 
-                {/* CTA - Anchored clearly, premium weight */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <Button
-                    onClick={() => router.push("/properties")}
-                    size="lg"
-                    className="bg-[#0f172a] hover:bg-[#1e293b] text-white h-14 px-10 rounded-full font-semibold transition-all shadow-md hover:shadow-xl text-[1rem]"
-                  >
-                    View Available Properties →
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </div>
+          {/* Subheader - Professional & Informative */}
+          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium">
+            Smart, strategic real estate guidance across Noida & Gurgaon&apos;s
+            most prestigious neighborhoods.
+          </p>
 
-            {/* Right column - Visual balance space */}
-            <div className="hidden lg:block lg:col-span-4 xl:col-span-6" />
+          {/* Dual CTAs - Centered */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <Button
+              onClick={() => router.push("/contact")}
+              size="lg"
+              className="w-full sm:w-auto bg-white hover:bg-neutral-100 text-[#0f172a] h-14 px-10 rounded-full font-bold transition-all shadow-xl text-[1rem]"
+            >
+              Get a Consultation
+            </Button>
+            <Button
+              onClick={() => router.push("/properties")}
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 h-14 px-10 rounded-full font-bold transition-all text-[1rem]"
+            >
+              Explore Designs
+            </Button>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Stats Section - Bottom Anchored */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="grid grid-cols-3 gap-8 py-8 border-t border-white/10"
+        >
+          {stats.map((stat, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <span className="text-white text-2xl md:text-3xl font-bold mb-1 tracking-tight">
+                {stat.value}
+              </span>
+              <span className="text-white/50 text-xs md:text-sm font-medium uppercase tracking-widest">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
-      {/* Atmospheric bottom fade - very subtle transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white/30 via-transparent to-transparent pointer-events-none" />
+      {/* Subtle bottom fade for section continuity */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-[#0f172a] to-transparent pointer-events-none" />
     </section>
   );
 }
