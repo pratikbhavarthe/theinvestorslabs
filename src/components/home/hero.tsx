@@ -34,8 +34,8 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
-                {/* Headline - H1: 40-48px */}
-                <h1 className="text-[2.5rem] md:text-[3rem] font-bold text-[#0f172a] mb-8 leading-[1.1]">
+                {/* Headline - H1: 40-48px, weight 700 per ruleset */}
+                <h1 className="text-[2.5rem] md:text-[3rem] font-bold text-[#0f172a] mb-8 leading-[1.2]">
                   A <span className="italic font-light">trusted</span> real
                   estate partner
                 </h1>
