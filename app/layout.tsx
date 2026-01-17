@@ -6,7 +6,7 @@ import { PageTransition } from "@/components/animations/page-transition";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-sans",
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
 });
 

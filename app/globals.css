@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  /* Explicitly define the font stack to match Plus Jakarta Sans */
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Define the brand font variable */
+  --font-plus-jakarta:
+    "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --color-primary: #0f172a;
   --color-primary-light: #1e293b;
@@ -22,8 +23,8 @@
 
 @layer base {
   body {
-    /* Use the variable injected by Next.js if available, otherwise fall back to the theme one */
-    font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+    /* Correctly inherit the Next.js font variable */
+    font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", sans-serif;
     color: var(--color-text-primary);
     background-color: var(--color-bg);
     line-height: 1.6;
@@ -36,7 +37,8 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+    /* headings must use the brand font */
+    font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", sans-serif;
     letter-spacing: -0.02em;
   }
 }
@@ -44,23 +46,23 @@
 @layer utilities {
   .container {
     width: 100%;
-    max-width: 1440px;
+    max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1.5rem; /* 24px mobile */
+    padding-right: 1.5rem;
   }
 
   @media (min-width: 768px) {
     .container {
-      padding-left: 4rem;
-      padding-right: 4rem;
+      padding-left: 3rem; /* 48px tablet */
+      padding-right: 3rem;
     }
   }
 
   @media (min-width: 1280px) {
     .container {
-      padding-left: 6rem;
+      padding-left: 6rem; /* 96px desktop */
       padding-right: 6rem;
     }
   }
