@@ -17,7 +17,7 @@ export const properties = pgTable(
       .$defaultFn(() => createId()),
     title: text("title").notNull(),
     description: text("description").notNull(),
-    city: varchar("city", { length: 50 }).notNull(), // Noida or Gurgaon
+    city: varchar("city", { length: 50 }).notNull(), // Noida or Greater Noida
     sector: text("sector").notNull(),
     price: integer("price").notNull(),
     propertyType: varchar("property_type", { length: 50 }).notNull(), // Flat, Villa, Plot, Commercial
@@ -25,6 +25,17 @@ export const properties = pgTable(
     featured: boolean("featured").notNull().default(false),
     images: text("images").array(), // Array of image URLs
     videoUrl: text("video_url"), // Optional video walkthrough
+    address: text("address"),
+    unit: varchar("unit", { length: 20 }),
+    superArea: varchar("super_area", { length: 50 }),
+    floor: varchar("floor", { length: 20 }),
+    bathrooms: integer("bathrooms"),
+    balconies: integer("balconies"),
+    facing: varchar("facing", { length: 50 }),
+    parking: integer("parking"),
+    view: text("view"),
+    scores: text("scores"),
+    configuration: varchar("configuration", { length: 50 }), // e.g., "1 BHK", "2 BHK", etc.
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
   },
@@ -34,7 +45,7 @@ export const properties = pgTable(
     statusIdx: index("status_idx").on(table.status),
     featuredIdx: index("featured_idx").on(table.featured),
     priceIdx: index("price_idx").on(table.price),
-  })
+  }),
 );
 
 export const leads = pgTable(
@@ -53,5 +64,9 @@ export const leads = pgTable(
   (table) => ({
     propertyIdIdx: index("property_id_idx").on(table.propertyId),
     createdAtIdx: index("created_at_idx").on(table.createdAt),
-  })
+  }),
 );
+export type Property = typeof properties.$inferSelect;
+export type NewProperty = typeof properties.$inferInsert;
+export type Lead = typeof leads.$inferSelect;
+export type NewLead = typeof leads.$inferInsert;

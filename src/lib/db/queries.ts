@@ -7,14 +7,24 @@ import { eq, and, gte, lte, desc, sql } from "drizzle-orm";
 // ============================================
 
 export interface PropertyFilters {
-  city?: "Noida" | "Gurgaon";
-  propertyType?: "Flat" | "Villa" | "Plot" | "Commercial";
-  status?: "Available" | "Sold" | "Coming Soon";
+  city?: string | string[];
+  propertyType?: string | string[];
+  status?: string | string[];
+  configuration?: string | string[];
   minPrice?: number;
   maxPrice?: number;
+  minArea?: number;
+  maxArea?: number;
   featured?: boolean;
   limit?: number;
   offset?: number;
+  sort?:
+    | "relevance"
+    | "price_asc"
+    | "price_desc"
+    | "recent"
+    | "rate_asc"
+    | "rate_desc";
 }
 
 /**
@@ -25,31 +35,81 @@ export async function getProperties(filters: PropertyFilters = {}) {
     city,
     propertyType,
     status = "Available",
+    configuration,
     minPrice,
     maxPrice,
     featured,
     limit = 12,
     offset = 0,
+    sort = "relevance",
   } = filters;
 
   const conditions = [];
 
-  if (city) conditions.push(eq(properties.city, city));
-  if (propertyType) conditions.push(eq(properties.propertyType, propertyType));
-  if (status) conditions.push(eq(properties.status, status));
+  if (city) {
+    if (Array.isArray(city)) {
+      conditions.push(sql`${properties.city} IN ${city}`);
+    } else {
+      conditions.push(eq(properties.city, city));
+    }
+  }
+
+  if (propertyType) {
+    if (Array.isArray(propertyType)) {
+      conditions.push(sql`${properties.propertyType} IN ${propertyType}`);
+    } else {
+      conditions.push(eq(properties.propertyType, propertyType));
+    }
+  }
+
+  if (status) {
+    if (Array.isArray(status)) {
+      conditions.push(sql`${properties.status} IN ${status}`);
+    } else {
+      conditions.push(eq(properties.status, status));
+    }
+  }
+
+  if (configuration) {
+    if (Array.isArray(configuration)) {
+      conditions.push(sql`${properties.configuration} IN ${configuration}`);
+    } else {
+      conditions.push(eq(properties.configuration, configuration));
+    }
+  }
+
   if (featured !== undefined)
     conditions.push(eq(properties.featured, featured));
-  if (minPrice) conditions.push(gte(properties.price, minPrice));
-  if (maxPrice) conditions.push(lte(properties.price, maxPrice));
+
+  if (minPrice !== undefined) conditions.push(gte(properties.price, minPrice));
+  if (maxPrice !== undefined) conditions.push(lte(properties.price, maxPrice));
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+  // Sorting logic
+  let orderBy;
+  switch (sort) {
+    case "price_asc":
+      orderBy = [desc(properties.featured), properties.price];
+      break;
+    case "price_desc":
+      orderBy = [desc(properties.featured), desc(properties.price)];
+      break;
+    case "recent":
+      orderBy = [desc(properties.featured), desc(properties.createdAt)];
+      break;
+    case "relevance":
+    default:
+      orderBy = [desc(properties.featured), desc(properties.createdAt)];
+      break;
+  }
 
   const [items, totalCount] = await Promise.all([
     db
       .select()
       .from(properties)
       .where(whereClause)
-      .orderBy(desc(properties.featured), desc(properties.createdAt))
+      .orderBy(...orderBy)
       .limit(limit)
       .offset(offset),
     db
@@ -87,7 +147,7 @@ export async function getFeaturedProperties(limit = 6) {
     .select()
     .from(properties)
     .where(
-      and(eq(properties.featured, true), eq(properties.status, "Available"))
+      and(eq(properties.featured, true), eq(properties.status, "Available")),
     )
     .orderBy(desc(properties.createdAt))
     .limit(limit);
@@ -114,7 +174,7 @@ export async function createProperty(data: typeof properties.$inferInsert) {
  */
 export async function updateProperty(
   id: string,
-  data: Partial<typeof properties.$inferInsert>
+  data: Partial<typeof properties.$inferInsert>,
 ) {
   const result = await db
     .update(properties)
@@ -144,7 +204,7 @@ export async function deleteProperty(id: string) {
  * Get property count by filters
  */
 export async function getPropertyCount(
-  filters: Omit<PropertyFilters, "limit" | "offset"> = {}
+  filters: Omit<PropertyFilters, "limit" | "offset"> = {},
 ) {
   const { city, propertyType, status, minPrice, maxPrice, featured } = filters;
 
