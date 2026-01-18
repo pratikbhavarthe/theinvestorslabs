@@ -1,3 +1,5 @@
+import { Card } from "@/components/ui/card";
+
 export function TrustSignals() {
   const features = [
     {
@@ -81,35 +83,35 @@ export function TrustSignals() {
   ];
 
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-32 md:py-48 bg-white overflow-hidden">
       <div className="container">
         {/* Section Header - H2: 32-36px */}
-        <div className="text-center mb-12">
-          <h2 className="text-[2rem] md:text-[2.25rem] font-semibold text-[#111827] mb-4 leading-[1.3]">
-            Why Choose Us
+        <div className="text-center mb-16">
+          <h2 className="text-[2rem] md:text-[2.25rem] font-semibold text-dark-amethyst mb-4 leading-[1.3]">
+            Trust built on specialized NCR intelligence.
           </h2>
-          <p className="text-[1rem] text-[#6B7280] max-w-2xl mx-auto leading-[1.6]">
+          <p className="text-[1rem] text-dark-amethyst/60 max-w-2xl mx-auto leading-[1.6]">
             Your trusted partner in finding the perfect property
           </p>
         </div>
 
         {/* Features Grid - 24-32px gap */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="text-center">
-              {/* Icon with Emerald Green background */}
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-[#047857]/10 text-[#047857] rounded-full mb-4">
+          {features.map((feature, i) => (
+            <Card
+              key={i}
+              className="bg-white border-none shadow-soft hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-velvet/10 text-indigo-velvet rounded-full mb-4">
                 {feature.icon}
               </div>
-              {/* Title - H4: 20-22px */}
-              <h3 className="text-[1.25rem] font-semibold text-[#111827] mb-2 leading-[1.4]">
+              <h3 className="text-[1.25rem] font-semibold text-dark-amethyst mb-2 leading-[1.4]">
                 {feature.title}
               </h3>
-              {/* Description - Body text: 15px */}
-              <p className="text-[0.9375rem] text-[#6B7280] leading-[1.6]">
+              <p className="text-[0.9375rem] text-dark-amethyst/60 leading-[1.6]">
                 {feature.description}
               </p>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

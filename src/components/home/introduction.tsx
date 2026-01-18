@@ -5,8 +5,8 @@ import { fadeIn, staggerContainer } from "@/lib/animations/variants";
 
 export function Introduction() {
   return (
-    <section className="section bg-white overflow-hidden py-24 md:py-32">
-      <div className="w-full max-w-[1536px] mx-auto px-6 md:px-10 lg:px-12">
+    <section className="py-32 md:py-48 bg-white overflow-hidden">
+      <div className="w-full max-w-[1536px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div
           variants={staggerContainer}
           initial="initial"
@@ -18,51 +18,42 @@ export function Introduction() {
           <div className="md:col-span-6 lg:col-span-7">
             <motion.h2
               variants={fadeIn}
-              className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-primary leading-[1.1] tracking-tight"
-              style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
+              className="text-[2.75rem] md:text-[3.75rem] lg:text-[4.5rem] font-bold text-dark-amethyst leading-[1.05] tracking-tight"
             >
-              A dedicated property advisor focused on the NCR real estate
-              landscape.
+              A specialized property advisor for the NCR investment landscape.
             </motion.h2>
           </div>
 
           {/* Right Column - Deep Dive & Values */}
           <div className="md:col-span-6 lg:col-span-5 flex flex-col justify-end">
-            <motion.div variants={fadeIn} className="space-y-8">
-              <div className="space-y-6">
-                <p
-                  className="text-lg md:text-xl text-neutral-slate leading-relaxed text-justify"
-                  style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
-                >
-                  The Investor Labs is a specialized real estate advisory firm
-                  pursuing premium residential and commercial opportunities in
-                  the Noida and Gurgaon markets.
+            <motion.div variants={fadeIn} className="space-y-10">
+              <div className="space-y-8">
+                <p className="text-xl md:text-2xl text-dark-amethyst/90 leading-relaxed font-light italic">
+                  &ldquo;We don&apos;t just sell properties; we curate
+                  investment journeys that redefine wealth and architectural
+                  legacy in the heart of India&apos;s most promising
+                  hubs.&rdquo;
                 </p>
-                <p
-                  className="text-lg md:text-xl text-neutral-slate leading-relaxed text-justify"
-                  style={{ fontFamily: "var(--font-plus-jakarta), sans-serif" }}
-                >
-                  Founded to bring transparency and strategic depth to property
-                  investments, our expertise guides investors and home seekers
-                  through every step of their journey—bridging the gap between
-                  aspiration and acquisition in the region&apos;s most promising
-                  sectors.
-                </p>
+                <div className="space-y-6">
+                  <p className="text-lg md:text-xl text-dark-amethyst/70 leading-relaxed text-justify font-medium">
+                    Founded to bring transparency and strategic depth to
+                    property investments, our expertise guides investors through
+                    every step—bridging the gap between aspiration and
+                    acquisition in the region&apos;s most promising sectors.
+                  </p>
+                </div>
               </div>
 
               {/* Core Focus - Small architectural tags */}
-              <div className="pt-8 border-t border-border flex flex-wrap gap-4">
+              <div className="pt-10 border-t border-dark-amethyst/20 flex flex-wrap gap-10">
                 {[
                   "Strategic Advisory",
                   "Premium Listings",
-                  "Noida & Gurgaon",
+                  "Verified Assets",
                 ].map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-primary/50"
-                    style={{
-                      fontFamily: "var(--font-plus-jakarta), sans-serif",
-                    }}
+                    className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-indigo-velvet"
                   >
                     {tag}
                   </span>
