@@ -2,7 +2,7 @@
 
 A high-conversion real estate marketplace platform for Noida and Gurgaon.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript (strict mode)
@@ -13,7 +13,7 @@ A high-conversion real estate marketplace platform for Noida and Gurgaon.
 - **File Upload**: UploadThing
 - **Validation**: Zod
 
-## 📦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -42,7 +42,7 @@ pnpm dev
 
 Visit [http://localhost:3000](http://localhost:3000)
 
-## 🔧 Available Scripts
+## Available Scripts
 
 ```bash
 pnpm dev          # Start development server
@@ -54,7 +54,7 @@ pnpm db:migrate   # Run database migrations
 pnpm db:studio    # Open Drizzle Studio
 ```
 
-## 🌿 Git Branching Strategy
+## Git Branching Strategy
 
 ### Branches
 - **main** - Production-ready code
@@ -77,7 +77,7 @@ git push origin feature/my-feature
 
 See [.agent/workflows/git-branching.md](.agent/workflows/git-branching.md) for details.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -96,7 +96,7 @@ src/
 └── types/           # TypeScript types
 ```
 
-## 🔐 Environment Variables
+## Environment Variables
 
 Required environment variables:
 
@@ -112,16 +112,16 @@ UPLOADTHING_TOKEN=
 DATABASE_URL=
 ```
 
-## 🎯 Features
+## Features
 
-- ✅ Property listings (Noida & Gurgaon)
-- ✅ Admin dashboard
-- ✅ Lead management
-- ✅ File uploads (images & videos)
-- ✅ SEO optimization
-- ✅ Role-based access control
+- Property listings (Noida & Greater Noida)
+- Admin dashboard
+- Lead management
+- File uploads (images & videos)
+- SEO optimization
+- Role-based access control
 
-## 📝 Commit Convention
+## Commit Convention
 
 ```
 feat: add new feature
@@ -133,13 +133,13 @@ test: add tests
 chore: build/tooling changes
 ```
 
-## 🛡️ Code Quality
+## Code Quality
 
 All PRs must pass:
 - TypeScript compilation
 - ESLint checks
 - Production build
 
-## 📄 License
+## License
 
 Private - All rights reserved
