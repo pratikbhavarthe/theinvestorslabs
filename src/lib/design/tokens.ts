@@ -1,62 +1,51 @@
 // Design Tokens for The Investor Labs - Real Estate Marketplace
-// Following UI/Typography Ruleset
+// Following UI/Typography Ruleset - STRICT BRAND ENFORCEMENT
 
 export const colors = {
-  // Primary - Deep Navy Blue (Trust, Authority, Stability)
+  // Brand Color Palette (PRIMARY - ENFORCED)
+  brand: {
+    white: "#FFFFFF", // Pure White foundation
+    honeydew: "#EFF8E2", // Supporting surface
+    indigoVelvet: "#573280", // Primary Action
+    darkAmethyst: "#23022E", // Secondary Surface / Deep
+    lilacAsh: "#ADA8B6", // Supporting Accent
+    dustGrey: "#CECFC7", // Architectural Accent
+  },
+
+  // Semantic Mappings (Replaced Legacy Colors)
   primary: {
-    50: "#f8fafc",
-    100: "#f1f5f9",
-    200: "#e2e8f0",
-    300: "#cbd5e1",
-    400: "#94a3b8",
-    500: "#334155",
-    600: "#1e293b",
-    700: "#0f172a", // Primary brand color
-    800: "#0a0f1a",
-    900: "#020617",
+    DEFAULT: "#573280", // Indigo Velvet
+    foreground: "#ffffff",
+    dark: "#23022E", // Dark Amethyst
   },
-
-  // Secondary - Emerald Green (Growth, Wealth, Investment)
   secondary: {
-    50: "#ecfdf5",
-    100: "#d1fae5",
-    200: "#a7f3d0",
-    300: "#6ee7b7",
-    400: "#34d399",
-    500: "#10b981",
-    600: "#059669",
-    700: "#047857", // Secondary brand color
-    800: "#065f46",
-    900: "#064e3b",
+    DEFAULT: "#23022E", // Dark Amethyst
+    foreground: "#ffffff",
+    accent: "#ADA8B6", // Lilac Ash
   },
-
-  // Accent - Gold (Premium, Featured)
   accent: {
-    DEFAULT: "#C9A227",
-    light: "#E5C158",
-    dark: "#A68519",
+    DEFAULT: "#ADA8B6", // Lilac Ash
+    dark: "#CECFC7", // Dust Grey
   },
-
-  // Neutral Colors
   neutral: {
-    charcoal: "#111827", // Text primary
-    slate: "#6B7280", // Secondary text, labels
-    coolGray: "#E5E7EB", // Borders, dividers
-    offWhite: "#F9FAFB", // Backgrounds
+    DEFAULT: "#ADA8B6", // Lilac Ash
+    deep: "#23022E", // Dark Amethyst
+    surface: "#ffffff",
+    muted: "#EFF8E2", // Honeydew
   },
 
   // Semantic Colors
-  success: "#047857",
-  warning: "#f59e0b",
-  error: "#DC2626",
-  info: "#0f172a",
+  success: "#006466",
+  warning: "#4D194D",
+  error: "#1B3A4B",
+  info: "#006466",
 };
 
 export const typography = {
   fontFamily: {
     sans: [
       "Plus Jakarta Sans",
-      "Inter",
+      "var(--font-plus-jakarta)",
       "system-ui",
       "-apple-system",
       "sans-serif",
@@ -64,37 +53,26 @@ export const typography = {
   },
 
   fontSize: {
-    // Small text / Labels (13-14px)
     xs: ["0.8125rem", { lineHeight: "1.5" }], // 13px
     sm: ["0.875rem", { lineHeight: "1.5" }], // 14px
-
-    // Body text (15-16px)
     base: ["0.9375rem", { lineHeight: "1.6" }], // 15px
     md: ["1rem", { lineHeight: "1.6" }], // 16px
-
-    // H4 (20-22px)
     lg: ["1.25rem", { lineHeight: "1.4" }], // 20px
     xl: ["1.375rem", { lineHeight: "1.4" }], // 22px
-
-    // H3 (24-28px)
     "2xl": ["1.5rem", { lineHeight: "1.35" }], // 24px
     "3xl": ["1.75rem", { lineHeight: "1.35" }], // 28px
-
-    // H2 (32-36px)
     "4xl": ["2rem", { lineHeight: "1.3" }], // 32px
     "5xl": ["2.25rem", { lineHeight: "1.3" }], // 36px
-
-    // H1 (40-48px)
     "6xl": ["2.5rem", { lineHeight: "1.2" }], // 40px
     "7xl": ["3rem", { lineHeight: "1.2" }], // 48px
   },
 
   fontWeight: {
-    light: "300", // Rare use
-    normal: "400", // Body text
-    medium: "500", // Labels
-    semibold: "600", // Headings
-    bold: "700", // Primary headings only
+    light: "300",
+    normal: "400",
+    medium: "500",
+    semibold: "600",
+    bold: "700",
   },
 };
 
@@ -114,37 +92,40 @@ export const spacing = {
 };
 
 export const borderRadius = {
-  sm: "0.5rem", // 8px - Forms
-  md: "0.625rem", // 10px - Buttons
-  lg: "0.75rem", // 12px - Cards
-  xl: "1rem", // 16px - Cards
+  sm: "0.5rem", // 8px
+  md: "0.75rem", // 12px (Updated to match Ruleset 6.UI Components)
+  lg: "1rem", // 16px
   full: "9999px",
 };
 
 export const shadows = {
-  soft: "0 2px 8px rgba(0, 0, 0, 0.08)",
-  card: "0 4px 12px rgba(0, 0, 0, 0.1)",
+  soft: "0 4px 20px rgba(35, 2, 46, 0.05)", // Updated to Dark Amethyst for subtle shadow
+  card: "0 8px 30px rgba(35, 2, 46, 0.08)",
   none: "none",
 };
 
 export const components = {
   button: {
-    height: "2.75rem", // 44px
-    heightLg: "3rem", // 48px
-    borderRadius: "0.75rem", // 12px
+    primary: {
+      bg: "#573280",
+      text: "#FFFFFF",
+      hover: "#23022E",
+    },
+    secondary: {
+      border: "#CECFC7",
+      text: "#23022E",
+      hover: "#ADA8B6",
+    },
   },
-
   input: {
-    height: "2.75rem", // 44px
-    heightLg: "3rem", // 48px
-    borderRadius: "0.625rem", // 10px
+    border: "#ADA8B6",
+    focus: "#573280",
+    bg: "#FFFFFF",
   },
-
   card: {
-    padding: "1.25rem", // 20px
-    paddingLg: "1.5rem", // 24px
-    borderRadius: "0.75rem", // 12px
-    borderRadiusLg: "1rem", // 16px
+    bg: "#FFFFFF",
+    border: "#CECFC7",
+    muted: "#EFF8E2",
   },
 };
 

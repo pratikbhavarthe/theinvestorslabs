@@ -3,274 +3,247 @@ trigger: always_on
 ---
 
 # Antigravity Agent Ruleset – Design System, Color Palette, Typography & Spacing  
-**Project:** theinvestorlabs  
-**Domain:** Real Estate Marketplace (Premium, Trust-Driven, Conversion-Focused)
+Project: theinvestorlabs  
+Domain: Real Estate Marketplace (Premium, Trust-Driven, Conversion-Focused, India)
 
-This ruleset defines the visual foundation of the product. All frontend UI decisions must strictly follow these guidelines to ensure a cohesive, premium, and business-aligned experience.
+This ruleset defines the complete visual foundation of the product.  
+All frontend UI decisions MUST strictly follow these rules.
 
 ---
 
 ## 1. Design Philosophy
 
-- Visual tone must communicate:
-  - Trust
-  - Stability
-  - Premium value
-  - Professionalism
-- Avoid flashy, playful, or experimental UI patterns.
-- Design must feel:
-  - Clean
-  - Calm
-  - Confident
-  - Enterprise-grade
-- UI should guide users toward conversion without visual clutter.
+- The brand must communicate:
+  - Royalty & Exclusivity
+  - Modern Sophistication
+  - High Performance
+  - Architectural Excellence
+- Visual language should feel:
+  - Regal
+  - Structured
+  - High-Contrast
+  - Premium
+- Avoid:
+  - Playful or casual color schemes
+  - Overly vibrant "startup neon" (except for specific accent hits)
+  - Generic corporate blue
+- The UI must feel like a **luxury gallery**, highlighting the exclusivity of the properties.
 
 ---
 
-## 2. Color Palette (Real Estate Focused)
+## 2. Brand Color Palette (PRIMARY – ENFORCED)
 
-### 2.1 Primary Brand Colors
+### 2.1 Core Color Reference Table
 
-#### Primary
-- **Deep Navy Blue**
-  - Usage: Primary CTAs, headers, navigation
-  - Emotion: Trust, authority, stability
-  - Example: `#0F172A`
+| Role | Name | Hex | Usage |
+| :--- | :--- | :--- | :--- |
+| **Primary Action** | Indigo Velvet | `#573280` | CTAs, Primary Buttons, Active States |
+| **Primary Text / Deep** | Dark Amethyst | `#23022E` | Headlines, Hero Overlays, Body Text |
+| **Foundational (Light)** | Honeydew | `#EFF8E2` | Supporting Backgrounds, Muted Sections |
+| **Foundational (Pure)** | Pure White | `#FFFFFF` | Primary Background, High Contrast |
+| **Supporting Accent** | Lilac Ash | `#ADA8B6` | Secondary Tags, Inactive Tabs |
+| **Architectural Accent** | Dust Grey | `#CECFC7` | Borders, Dividers, Subtle Icons |
 
-#### Secondary
-- **Emerald Green**
-  - Usage: Success states, highlights, growth indicators, featured tags
-  - Emotion: Growth, wealth, investment
-  - Example: `#047857`
+### 2.2 Core Brand Colors
 
----
+#### Foundational Surface (Light)
+- **Honeydew White**
+- Hex: `#EFF8E2`
+- Usage: Supporting background sections to provide a fresh, organic architectural feel.
 
-### 2.2 Neutral Colors
-
-- **Charcoal Black**
-  - Text primary
-  - `#111827`
-
-- **Slate Gray**
-  - Secondary text, labels
-  - `#6B7280`
-
-- **Cool Gray**
-  - Borders, dividers
-  - `#E5E7EB`
-
-- **Off White**
-  - Backgrounds
-  - `#F9FAFB`
+#### Foundational Surface (Dark)
+- **Pure White**
+- Hex: `#FFFFFF`
+- Usage: Primary background foundation for high-contrast clarity.
 
 ---
 
-### 2.3 Accent Colors
-
-- **Gold Accent**
-  - Usage: Premium listings, featured badges
-  - `#C9A227`
-  - Use sparingly
-
-- **Alert Red**
-  - Errors, destructive actions
-  - `#DC2626`
+#### Primary Action (Accent)
+- **Indigo Velvet**
+- Hex: `#573280`
+- Usage: CTAs, primary buttons, high-intent highlights, active states.
+- Emotion: High performance, energy, conversion.
 
 ---
 
-### 2.4 Color Usage Rules
-
-- Never use more than:
-  - 1 primary color per screen
-  - 1 accent color per component
-- Avoid gradients unless explicitly designed.
-- Maintain WCAG AA contrast ratios.
-- No neon or overly saturated colors.
+#### Primary Surface / Deep
+- **Dark Amethyst**
+- Hex: `#23022E`
+- Usage: Hero overlays, primary headers, bold text foundation, cinematic backgrounds.
+- Emotion: Regal trust, deep luxury, stability.
 
 ---
 
-## 3. Typography System
-
-### 3.1 Font Family
-
-- **Primary Font:** Plus Jakarta Sans
-- Use system fallback:
-  - `font-sans`
+#### Supporting Accent
+- **Lilac Ash**
+- Hex: `#ADA8B6`
+- Usage: Secondary tags, muted surface separation, inactive tabs.
+- Emotion: Elegance, architectural calm.
 
 ---
 
-### 3.2 Font Weights
+#### Architectural Accent
+- **Dust Grey**
+- Hex: `#CECFC7`
+- Usage: Dividers, borders, subtle icons, secondary buttons.
 
-- Light: 300 (rare)
-- Regular: 400 (body text)
+---
+
+## 3. Color Usage Rules (STRICT)
+
+- The primary background MUST be Pure White (#FFFFFF) or Honeydew White (#EFF8E2).
+- Use **Indigo Velvet (#573280)** as the "Best Accent" for all primary call-to-actions.
+- Text must always be:
+  - `#23022E` for primary content (Dark Amethyst)
+  - White (#FFFFFF) only on dark backgrounds (Dark Amethyst)
+- Maintain WCAG AA contrast at all times.
+- Decorative elements must never overpower the property imagery.
+
+---
+
+## 4. Typography System
+
+### 4.1 Font Family
+- Primary: **Plus Jakarta Sans**
+- Fallback: `font-sans`
+
+---
+
+### 4.2 Font Weights
+- Light: 300 (accent words only)
+- Regular: 400 (body)
 - Medium: 500 (labels)
-- Semibold: 600 (headings)
-- Bold: 700 (primary headings only)
+- Semibold: 600 (sub-headings)
+- Bold: 700 (H1 only)
 
-Avoid ultra-bold or extra-light styles.
+Avoid extra-bold or ultra-light styles.
 
 ---
 
-### 3.3 Heading Scale
+### 4.3 Heading Scale
 
 #### H1
-- Size: 40–48px (desktop)
+- Size: 44–52px (desktop)
 - Weight: 700
-- Line-height: 1.2
+- Line-height: 1.15
+- Color: `#23022E`
 - Usage:
-  - Page hero titles
-  - Primary value proposition
+  - Hero headlines
+  - Primary value statements
 
 #### H2
 - Size: 32–36px
 - Weight: 600
-- Line-height: 1.3
-- Usage:
-  - Section headers
+- Line-height: 1.25
+- Color: `#23022E`
 
 #### H3
 - Size: 24–28px
 - Weight: 600
 - Line-height: 1.35
-- Usage:
-  - Card titles
-  - Sub-sections
-
-#### H4
-- Size: 20–22px
-- Weight: 600
-- Line-height: 1.4
+- Color: `#23022E`
 
 ---
 
-### 3.4 Body Text
-
+### 4.4 Body Text
 - Size: 15–16px
 - Weight: 400
 - Line-height: 1.6
-- Color: Slate Gray or Charcoal
+- Color: `#23022E`
 
 ---
 
-### 3.5 Small Text / Labels
+## 5. Spacing System (NON-NEGOTIABLE)
 
-- Size: 13–14px
-- Weight: 500
-- Line-height: 1.5
-- Usage:
-  - Metadata
-  - Form labels
-  - Captions
+### 5.1 Base Unit
+- Use **8px system only**
 
 ---
 
-## 4. Spacing System
-
-### 4.1 Base Unit
-
-- Use an **8px spacing system** exclusively.
-
----
-
-### 4.2 Padding Guidelines
-
-#### Containers
-- Desktop: 80–96px horizontal
-- Tablet: 48–64px
-- Mobile: 16–24px
-
-#### Cards
-- Padding: 20–24px
-- Border-radius: 12–16px
+### 5.2 Section Spacing
+- Desktop:
+  - Padding top/bottom: `96–120px`
+- Tablet:
+  - `64–80px`
+- Mobile:
+  - `40–56px`
 
 ---
 
-### 4.3 Vertical Spacing
-
-- Between sections: 80–120px
-- Between headings and content: 16–24px
-- Between paragraphs: 12–16px
-
----
-
-### 4.4 Component Gaps
-
-- Form fields gap: 16–20px
-- Button groups gap: 12–16px
-- Icon + text gap: 8–12px
-- Grid gap:
-  - Desktop: 24–32px
-  - Mobile: 16px
+### 5.3 Content Rhythm
+- Heading → content: `20–24px`
+- Paragraph → paragraph: `12–16px`
+- CTA below text: `24–32px`
 
 ---
 
-## 5. Line Height & Text Rhythm
-
-- Headings: Tight but readable
-- Body text: Comfortable, airy
-- Avoid cramped text blocks.
-- Maximum text width:
-  - 60–72 characters per line
-
----
-
-## 6. UI Elements Styling
-
-### 6.1 Buttons
-
-- Height: 44–48px
-- Border-radius: 10–12px
-- Primary button:
-  - Navy background
-  - White text
-- Secondary button:
-  - Outline style
-- Hover states must be subtle.
+### 5.4 Containers
+- Desktop padding: `80–96px`
+- Tablet padding: `48–64px`
+- Mobile padding: `16–24px`
+- Max readable width:
+  - `60–72ch`
 
 ---
 
-### 6.2 Cards
+## 6. UI Components
 
-- Soft shadow only
-- White background
-- Clear visual hierarchy
-- Avoid heavy borders
+### Buttons
+- Height: `44–48px`
+- Border-radius: `12px`
+- Primary:
+  - Background: `#573280`
+  - Text: White
+- Secondary:
+  - Outline using `#573280`
 
----
-
-### 6.3 Forms
-
-- Input height: 44–48px
-- Rounded corners: 8–10px
-- Focus state:
-  - Primary color outline
-- Error states:
-  - Red border
-  - Clear helper text
+Hover states must be subtle only.
 
 ---
 
-## 7. Accessibility Rules
+### Cards
+- Background: `#FFFFFF`
+- Radius: `14–16px`
+- Shadow: soft, diffused
+- No hard borders
 
-- Maintain WCAG AA contrast.
-- Text must be readable on all devices.
-- Avoid color-only indicators.
-- Ensure keyboard navigation support.
+---
+
+### Forms
+- Input height: `44–48px`
+- Radius: `10px`
+- Border: `#CECFC7`
+- Focus:
+  - Outline with `#573280`
+
+---
+
+## 7. Accessibility
+
+- WCAG AA contrast mandatory
+- No color-only indicators
+- Keyboard navigation required
+- Motion must respect reduced-motion settings
 
 ---
 
 ## 8. Design Consistency Enforcement
 
-- No ad-hoc spacing or font sizes.
-- No custom colors outside palette.
-- All new UI must reuse existing tokens.
-- If a new token is needed, define it globally.
+- No custom colors outside this palette
+- No arbitrary spacing values
+- No mixing of other design systems
+- All UI must reuse defined tokens
 
 ---
 
 ## 9. Antigravity Agent Enforcement
 
-- Treat this as a design system, not suggestions.
-- Reject UI changes that violate spacing, typography, or color rules.
-- Prioritize clarity, trust, and conversion over visual novelty.
-- Always evaluate UI decisions from a real estate business perspective.
+- Treat this as a hard contract
+- Reject UI that:
+  - Feels SaaS-like
+  - Feels startup-generic
+  - Breaks spacing rhythm
+- Prioritize:
+  - Calm confidence
+  - Real estate seriousness
+  - Indian premium sensibility

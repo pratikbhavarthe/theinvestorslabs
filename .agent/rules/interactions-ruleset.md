@@ -67,8 +67,8 @@ Avoid spring animations unless explicitly justified.
 ### 4.1 Navigation Items
 
 - On hover:
-  - Text color transitions to primary color
-  - Subtle underline or bottom border appears
+  - Text color transitions to **Indigo Velvet (#573280)**
+  - Subtle underline or bottom border appears using Indigo Velvet
 - Animation:
   - Opacity or translateY: `2–4px`
   - Duration: `150ms`
@@ -79,10 +79,10 @@ Avoid spring animations unless explicitly justified.
 ### 4.2 Buttons
 
 - Primary button hover:
-  - Slight background darkening
+  - Slight background darkening or shift to **Dark Amethyst (#23022E)**
   - Optional subtle shadow increase
 - Secondary button hover:
-  - Border color transition
+  - Border color transition to Indigo Velvet
 - No aggressive scaling.
 - Disabled state:
   - Reduced opacity
@@ -105,7 +105,7 @@ Avoid spring animations unless explicitly justified.
 
 - Focus must be visible and accessible.
 - Use:
-  - Outline or ring with primary color
+  - Outline or ring with **Indigo Velvet (#573280)**
 - Active states:
   - Slight scale down (`0.98`)
   - Short duration (`100ms`)

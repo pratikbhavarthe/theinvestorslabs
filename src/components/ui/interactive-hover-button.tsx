@@ -10,20 +10,25 @@ export function InteractiveHoverButton({
   return (
     <button
       className={cn(
-        "group bg-white relative w-auto cursor-pointer overflow-hidden rounded-full border p-2 px-6 text-center font-semibold",
+        "group relative w-auto cursor-pointer overflow-hidden rounded-full p-4 px-10 text-center font-bold transition-all duration-300",
         className,
       )}
       {...props}
     >
-      <div className="flex items-center gap-2">
-        <div className="bg-primary h-2 w-2 rounded-full transition-all duration-300 group-hover:scale-[100.8]"></div>
-        <span className="inline-block transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0">
+      {/* Background Expansion Circle - Positioned Left (Subtle) */}
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-indigo-velvet transition-all duration-500 ease-in-out group-hover:scale-[500] group-hover:bg-dark-amethyst z-0"></div>
+
+      <div className="relative z-10 flex items-center justify-center gap-2">
+        <span className="inline-block text-indigo-velvet transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0 uppercase tracking-widest text-[10px] ml-2">
           {children}
         </span>
       </div>
-      <div className="text-white absolute top-0 left-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-        <span>{children}</span>
-        <ArrowRight />
+
+      <div className="absolute inset-0 z-20 flex items-center justify-center gap-3 text-white opacity-0 transition-all duration-300 -translate-x-12 group-hover:translate-x-0 group-hover:opacity-100">
+        <span className="uppercase tracking-widest text-[10px] font-bold">
+          {children}
+        </span>
+        <ArrowRight className="w-4 h-4" />
       </div>
     </button>
   );
