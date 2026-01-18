@@ -1,8 +1,7 @@
 import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
-import { Navbar } from "@/components/layout/navbar";
-import { PageTransition } from "@/components/animations/page-transition";
+import { ClientLayout } from "@/components/layout/client-layout";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -16,8 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Investor Labs",
-  description: "Real estate marketplace for Noida and Gurgaon",
+  title: "The Investor Labs | Premium Real Estate in Noida & Greater Noida",
+  description:
+    "Discover premium residential and commercial properties in Noida and Greater Noida. Expert guidance, verified listings, and seamless transactions.",
 };
 
 export default function RootLayout({
@@ -29,10 +29,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased`}
+          className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Navbar />
-          <PageTransition>{children}</PageTransition>
+          <ClientLayout>{children}</ClientLayout>
         </body>
       </html>
     </ClerkProvider>
