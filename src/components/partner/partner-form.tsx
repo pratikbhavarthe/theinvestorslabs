@@ -17,7 +17,16 @@ import { cn } from "@/lib/utils";
 type PartnershipFormData = z.infer<typeof partnershipFormSchema>;
 
 interface PartnerFormProps {
-  selectedRole?: "channel-partner" | "developer" | "investor" | "other" | null;
+  selectedRole?:
+    | "agency"
+    | "payment-processor"
+    | "cfo"
+    | "builder"
+    | "channel-partner"
+    | "developer"
+    | "investor"
+    | "other"
+    | null;
 }
 
 export function PartnerForm({ selectedRole }: PartnerFormProps) {
@@ -35,10 +44,10 @@ export function PartnerForm({ selectedRole }: PartnerFormProps) {
       name: "",
       email: "",
       phone: "",
-      city: "",
       company: "",
+      businessSize: "",
       message: "",
-      partnershipType: "channel-partner", // Default backup
+      partnershipType: "agency",
     },
   });
 
@@ -143,18 +152,18 @@ export function PartnerForm({ selectedRole }: PartnerFormProps) {
               )}
             </div>
             <div className="space-y-1">
-              <Label htmlFor="city" className={labelClasses}>
-                City
+              <Label htmlFor="businessSize" className={labelClasses}>
+                Business Size
               </Label>
               <Input
-                id="city"
-                {...register("city")}
-                placeholder="e.g. Gurgaon"
+                id="businessSize"
+                {...register("businessSize")}
+                placeholder="e.g. 10-50 employees"
                 className={inputClasses}
               />
-              {errors.city && (
+              {errors.businessSize && (
                 <p className="text-red-500 text-xs mt-1">
-                  {errors.city.message}
+                  {errors.businessSize.message}
                 </p>
               )}
             </div>
@@ -166,7 +175,7 @@ export function PartnerForm({ selectedRole }: PartnerFormProps) {
 
             <div className="md:col-span-2 space-y-1">
               <Label htmlFor="company" className={labelClasses}>
-                Company (Optional)
+                Company Name
               </Label>
               <Input
                 id="company"
