@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { partnershipFormSchema } from "@/lib/validations/partnership";
+import { createInquiry } from "@/lib/db/queries";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,17 +16,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the submission (in production, this would save to database)
-    console.log("Partnership application received:", result.data);
-
-    // TODO: Save to database
-    // TODO: Send email notification to partnerships team
-    // TODO: Send confirmation email to applicant
-    // TODO: Create partnership application record
+    // Save to database
+    const inquiry = await createInquiry({
+      type: "partnership",
+      name: result.data.name,
+      email: result.data.email,
+      phone: result.data.phone,
+      message: result.data.message,
+      details: {
+        company: result.data.company,
+        partnershipType: result.data.partnershipType,
+        businessSize: result.data.businessSize,
+      },
+    });
 
     return NextResponse.json(
-      { message: "Partnership application submitted successfully" },
-      { status: 200 },
+      { message: "Partnership application submitted successfully", inquiry },
+      { status: 201 },
     );
   } catch (error) {
     console.error("Partnership form submission error:", error);

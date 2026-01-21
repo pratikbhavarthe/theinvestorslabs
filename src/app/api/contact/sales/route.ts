@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { salesFormSchema } from "@/lib/validations/sales";
+import { createInquiry } from "@/lib/db/queries";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,16 +16,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the submission (in production, this would save to database)
-    console.log("Sales inquiry received:", result.data);
-
-    // TODO: Save to database
-    // TODO: Send email notification to sales team
-    // TODO: Send confirmation email to user
+    // Save to database
+    const inquiry = await createInquiry({
+      type: "sales",
+      name: result.data.name,
+      email: result.data.email,
+      phone: result.data.phone,
+      message: result.data.message,
+      details: {
+        company: result.data.company,
+        interest: result.data.interest,
+      },
+    });
 
     return NextResponse.json(
-      { message: "Sales inquiry submitted successfully" },
-      { status: 200 },
+      { message: "Sales inquiry submitted successfully", inquiry },
+      { status: 201 },
     );
   } catch (error) {
     console.error("Sales form submission error:", error);

@@ -6,6 +6,7 @@ import {
   boolean,
   varchar,
   index,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 
@@ -66,7 +67,32 @@ export const leads = pgTable(
     createdAtIdx: index("created_at_idx").on(table.createdAt),
   }),
 );
+
+export const inquiries = pgTable(
+  "inquiries",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    type: varchar("type", { length: 50 }).notNull(), // sales, partnership, support, contact
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    details: jsonb("details"), // structured data specific to the type
+    message: text("message"),
+    status: varchar("status", { length: 20 }).default("new"), // new, contacted, closed
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    typeIdx: index("inquiries_type_idx").on(table.type),
+    statusIdx: index("inquiries_status_idx").on(table.status),
+    createdAtIdx: index("inquiries_created_at_idx").on(table.createdAt),
+  }),
+);
+
 export type Property = typeof properties.$inferSelect;
 export type NewProperty = typeof properties.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
 export type NewLead = typeof leads.$inferInsert;
+export type Inquiry = typeof inquiries.$inferSelect;
+export type NewInquiry = typeof inquiries.$inferInsert;

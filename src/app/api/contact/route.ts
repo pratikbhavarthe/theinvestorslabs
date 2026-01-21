@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
+import { createInquiry } from "@/lib/db/queries";
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,23 +9,25 @@ export async function POST(request: NextRequest) {
     // Validate the request body
     const validatedData = contactFormSchema.parse(body);
 
-    // TODO: In production, you would:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Integrate with CRM
-
-    // For now, log the submission
-    console.log("Contact form submission:", validatedData);
-
-    // Simulate processing delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Save to database
+    const inquiry = await createInquiry({
+      type: "contact",
+      name: validatedData.name,
+      email: validatedData.email,
+      phone: validatedData.phone,
+      message: validatedData.message,
+      details: {
+        subject: validatedData.subject,
+      },
+    });
 
     return NextResponse.json(
       {
         success: true,
         message: "Thank you for contacting us! We'll get back to you soon.",
+        inquiry,
       },
-      { status: 200 },
+      { status: 201 },
     );
   } catch (error) {
     if (error instanceof Error && error.name === "ZodError") {
