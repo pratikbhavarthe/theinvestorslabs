@@ -16,6 +16,7 @@ export interface PropertyFilters {
   minArea?: number;
   maxArea?: number;
   featured?: boolean;
+  facing?: string | string[];
   limit?: number;
   offset?: number;
   sort?:
@@ -38,7 +39,10 @@ export async function getProperties(filters: PropertyFilters = {}) {
     configuration,
     minPrice,
     maxPrice,
+    minArea,
+    maxArea,
     featured,
+    facing,
     limit = 12,
     offset = 0,
     sort = "relevance",
@@ -78,11 +82,27 @@ export async function getProperties(filters: PropertyFilters = {}) {
     }
   }
 
+  if (facing) {
+    if (Array.isArray(facing)) {
+      conditions.push(sql`${properties.facing} IN ${facing}`);
+    } else {
+      conditions.push(eq(properties.facing, facing));
+    }
+  }
+
   if (featured !== undefined)
     conditions.push(eq(properties.featured, featured));
 
   if (minPrice !== undefined) conditions.push(gte(properties.price, minPrice));
   if (maxPrice !== undefined) conditions.push(lte(properties.price, maxPrice));
+
+  if (minArea !== undefined) {
+    // Area filtering temporarily disabled due to schema type mismatch (varchar vs number)
+    // conditions.push(gte(properties.superArea, minArea.toString()));
+  }
+  if (maxArea !== undefined) {
+    // conditions.push(lte(properties.superArea, maxArea.toString()));
+  }
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
@@ -206,17 +226,48 @@ export async function deleteProperty(id: string) {
 export async function getPropertyCount(
   filters: Omit<PropertyFilters, "limit" | "offset"> = {},
 ) {
-  const { city, propertyType, status, minPrice, maxPrice, featured } = filters;
+  const { city, propertyType, status, minPrice, maxPrice, featured, facing } =
+    filters;
 
   const conditions = [];
 
-  if (city) conditions.push(eq(properties.city, city));
-  if (propertyType) conditions.push(eq(properties.propertyType, propertyType));
-  if (status) conditions.push(eq(properties.status, status));
+  if (city) {
+    if (Array.isArray(city)) {
+      conditions.push(sql`${properties.city} IN ${city}`);
+    } else {
+      conditions.push(eq(properties.city, city));
+    }
+  }
+
+  if (propertyType) {
+    if (Array.isArray(propertyType)) {
+      conditions.push(sql`${properties.propertyType} IN ${propertyType}`);
+    } else {
+      conditions.push(eq(properties.propertyType, propertyType));
+    }
+  }
+
+  if (status) {
+    if (Array.isArray(status)) {
+      conditions.push(sql`${properties.status} IN ${status}`);
+    } else {
+      conditions.push(eq(properties.status, status));
+    }
+  }
+
+  if (facing) {
+    if (Array.isArray(facing)) {
+      conditions.push(sql`${properties.facing} IN ${facing}`);
+    } else {
+      conditions.push(eq(properties.facing, facing));
+    }
+  }
+
   if (featured !== undefined)
     conditions.push(eq(properties.featured, featured));
-  if (minPrice) conditions.push(gte(properties.price, minPrice));
-  if (maxPrice) conditions.push(lte(properties.price, maxPrice));
+
+  if (minPrice !== undefined) conditions.push(gte(properties.price, minPrice));
+  if (maxPrice !== undefined) conditions.push(lte(properties.price, maxPrice));
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 

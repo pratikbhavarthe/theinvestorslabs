@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Loader2 } from "lucide-react";
+import { Phone, Mail, Loader2 } from "lucide-react";
+import { ZodIssue } from "zod";
 import {
   partnershipFormSchema,
   type PartnershipFormData,
@@ -16,7 +17,7 @@ export default function PartnershipPage() {
     email: "",
     phone: "",
     company: "",
-    partnershipType: "agency",
+    partnershipType: "agency", // Default to agency
     businessSize: "",
     message: "",
   });
@@ -49,7 +50,7 @@ export default function PartnershipPage() {
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof PartnershipFormData, string>> =
         {};
-      result.error.errors.forEach((error) => {
+      result.error.issues.forEach((error: ZodIssue) => {
         const field = error.path[0] as keyof PartnershipFormData;
         fieldErrors[field] = error.message;
       });
@@ -139,8 +140,9 @@ export default function PartnershipPage() {
                 Partner with us for mutual growth
               </h2>
               <p className="text-dark-amethyst/70 mb-8 text-lg">
-                We're looking for agencies, payment processors, fractional CFOs,
-                and builders to join our partner program and grow together.
+                We&apos;re looking for agencies, payment processors, fractional
+                CFOs, and builders to join our partner program and grow
+                together.
               </p>
 
               {/* Partnership Benefits */}

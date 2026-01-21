@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Building2,
-  Mail,
-  Settings,
-} from "lucide-react";
+import { LayoutDashboard, Building2, Mail, Settings } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 
 const navigation = [
@@ -38,7 +33,7 @@ export function AdminSidebar() {
         {navigation.map((item) => {
           const isActive =
             pathname === item.href ||
-            (item.href !== "/admin" && pathname.startsWith(item.href));
+            (item.href !== "/admin" && pathname?.startsWith(item.href));
 
           return (
             <Link

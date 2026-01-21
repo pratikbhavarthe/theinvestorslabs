@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Loader2 } from "lucide-react";
+import { ZodIssue } from "zod";
 import { salesFormSchema, type SalesFormData } from "@/lib/validations/sales";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
@@ -44,7 +45,7 @@ export default function SalesPage() {
     const result = salesFormSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof SalesFormData, string>> = {};
-      result.error.errors.forEach((error) => {
+      result.error.issues.forEach((error: ZodIssue) => {
         const field = error.path[0] as keyof SalesFormData;
         fieldErrors[field] = error.message;
       });
@@ -105,7 +106,7 @@ export default function SalesPage() {
               TALK TO SALES
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-              Let's Discuss Your Needs
+              Let&apos;s Discuss Your Needs
             </h1>
             <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
               Connect with our sales team for pricing, demos, and enterprise
@@ -322,7 +323,7 @@ export default function SalesPage() {
                     htmlFor="interest"
                     className="block text-sm font-medium text-dark-amethyst mb-2"
                   >
-                    I'm interested in *
+                    I&apos;m interested in *
                   </label>
                   <select
                     id="interest"
