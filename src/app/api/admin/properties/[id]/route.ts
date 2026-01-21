@@ -7,8 +7,9 @@ import { propertyFormSchema } from "@/lib/validations/property";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   try {
     const { userId, sessionClaims } = await auth();
 
@@ -24,7 +25,7 @@ export async function GET(
     const [property] = await db
       .select()
       .from(properties)
-      .where(eq(properties.id, params.id));
+      .where(eq(properties.id, id));
 
     if (!property) {
       return NextResponse.json(
@@ -45,8 +46,9 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   try {
     const { userId, sessionClaims } = await auth();
 
@@ -72,7 +74,7 @@ export async function PATCH(
     const [updatedProperty] = await db
       .update(properties)
       .set({ ...result.data, updatedAt: new Date() })
-      .where(eq(properties.id, params.id))
+      .where(eq(properties.id, id))
       .returning();
 
     if (!updatedProperty) {
@@ -94,8 +96,9 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   try {
     const { userId, sessionClaims } = await auth();
 
@@ -108,7 +111,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
-    await db.delete(properties).where(eq(properties.id, params.id));
+    await db.delete(properties).where(eq(properties.id, id));
 
     return NextResponse.json({ message: "Property deleted successfully" });
   } catch (error) {
