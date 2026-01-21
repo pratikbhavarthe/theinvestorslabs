@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supportFormSchema } from "@/lib/validations/support";
+import { createInquiry } from "@/lib/db/queries";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,17 +16,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the submission (in production, this would save to database)
-    console.log("Support request received:", result.data);
-
-    // TODO: Save to database
-    // TODO: Send email notification to support team
-    // TODO: Send confirmation email to user
-    // TODO: Create support ticket
+    // Save to database
+    const inquiry = await createInquiry({
+      type: "support",
+      name: result.data.name,
+      email: result.data.email,
+      phone: result.data.phone,
+      message: result.data.message,
+      details: {
+        category: result.data.category,
+        priority: result.data.priority,
+      },
+    });
 
     return NextResponse.json(
-      { message: "Support request submitted successfully" },
-      { status: 200 },
+      { message: "Support request submitted successfully", inquiry },
+      { status: 201 },
     );
   } catch (error) {
     console.error("Support form submission error:", error);

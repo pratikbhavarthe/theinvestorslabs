@@ -1,5 +1,5 @@
 import { db } from "./index";
-import { properties, leads } from "./schema";
+import { properties, leads, inquiries, type NewInquiry } from "./schema";
 import { eq, and, gte, lte, desc, sql } from "drizzle-orm";
 
 // ============================================
@@ -341,4 +341,12 @@ export async function getLeadCount() {
   const result = await db.select({ count: sql<number>`count(*)` }).from(leads);
 
   return Number(result[0]?.count ?? 0);
+}
+
+// ============================================
+// Inquiry Queries
+// ============================================
+
+export async function createInquiry(data: NewInquiry) {
+  return await db.insert(inquiries).values(data).returning();
 }
