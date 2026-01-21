@@ -1,5 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 
+const ADMIN_EMAILS = ["pratikbhavarthee1998@gmail.com"];
+
 export async function requireAdmin() {
   const user = await currentUser();
 
@@ -8,7 +10,9 @@ export async function requireAdmin() {
   }
 
   const role = user.publicMetadata?.role;
-  if (role !== "admin") {
+  const email = user.emailAddresses[0]?.emailAddress;
+
+  if (role !== "admin" && !ADMIN_EMAILS.includes(email)) {
     throw new Error("Forbidden: Admin access required");
   }
 

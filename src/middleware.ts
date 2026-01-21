@@ -2,6 +2,11 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+// Check if user has admin role in public metadata
+// const publicMetadata = sessionClaims?.publicMetadata as
+//   | { role?: string }
+//   | undefined;
+// const role = publicMetadata?.role;
 
 export default clerkMiddleware(async (auth, req) => {
   // Protect admin routes
@@ -20,11 +25,17 @@ export default clerkMiddleware(async (auth, req) => {
       | { role?: string }
       | undefined;
     const role = publicMetadata?.role;
+    // const email = sessionClaims?.email as string | undefined;
 
-    if (role !== "admin") {
-      // Redirect non-admin users to home page
-      return NextResponse.redirect(new URL("/", req.url));
-    }
+    // Optional: You can keep a basic role check if you want, but since sessionClaims might be missing email,
+    // we will rely on the page-level check for strict enforcement.
+    // If you want to block non-admins strictly at middleware level, you need to ensure claims are correct.
+    // For now, we allow authenticated users to reach the page, where requireAdmin() will strict check them.
+
+    // if (role !== "admin" && (!email || !ADMIN_EMAILS.includes(email))) {
+    //   // Redirect non-admin users to home page
+    //   return NextResponse.redirect(new URL("/", req.url));
+    // }
   }
 });
 

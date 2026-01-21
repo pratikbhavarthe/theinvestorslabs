@@ -2,11 +2,15 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
-export default function AdminLayout({
+import { requireAdmin } from "@/lib/auth";
+
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  await requireAdmin();
+
   return (
     <SidebarProvider className="bg-white">
       <AppSidebar variant="inset" />

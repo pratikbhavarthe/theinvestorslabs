@@ -32,7 +32,7 @@ export function JourneyCTA() {
             <div className="shrink-0 group">
               <InteractiveHoverButton
                 className="bg-white shadow-soft"
-                onClick={() => (window.location.href = "/contact")}
+                onClick={() => (window.location.href = "/consultation")}
               >
                 Request Consultation
               </InteractiveHoverButton>

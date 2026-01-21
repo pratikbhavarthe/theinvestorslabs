@@ -2,12 +2,10 @@ import { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
 import { Introduction } from "@/components/home/introduction";
 import { PropertyQuickActions } from "@/components/home/property-quick-actions";
-import { FeaturedProperties } from "@/components/home/featured-properties";
 import { JourneyCTA } from "@/components/home/journey-cta";
 import { TrustAndHandholdings } from "@/components/home/trust-and-handholdings";
 import { FAQ } from "@/components/home/faq";
 import { LeadForm } from "@/components/home/lead-form";
-import { getFeaturedProperties } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "The Investor Labs | Premium Real Estate in Noida & Greater Noida",
@@ -37,21 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function HomePage() {
-  // Fetch featured properties server-side
-  const featuredPropertiesRaw = await getFeaturedProperties(6);
-
-  // Transform to match component props (mapping DB fields to component interface)
-  const featuredProperties = featuredPropertiesRaw.map((prop) => ({
-    id: prop.id,
-    title: prop.title,
-    city: prop.city,
-    locality: prop.sector, // Map DB sector to locality
-    pricePrefix: prop.price.toString(), // Map DB price to pricePrefix
-    type: prop.propertyType, // Map DB propertyType to type
-    images: prop.images || [],
-  }));
-
+export default function HomePage() {
   return (
     <main>
       {/* Hero Section */}
@@ -60,13 +44,8 @@ export default async function HomePage() {
       {/* Introduction Section */}
       <Introduction />
 
-      {/* Quick Actions Section */}
+      {/* Quick Actions Section (NCR Elite Selection) */}
       <PropertyQuickActions />
-
-      {/* Featured Properties */}
-      {featuredProperties.length > 0 && (
-        <FeaturedProperties properties={featuredProperties} />
-      )}
 
       {/* Smart CTA Journey */}
       <JourneyCTA />
