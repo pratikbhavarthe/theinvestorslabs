@@ -6,17 +6,14 @@ export const partnershipFormSchema = z.object({
   phone: z
     .string()
     .regex(/^[6-9]\d{9}$/, "Please enter a valid 10-digit Indian phone number"),
-  company: z
-    .string()
-    .min(2, "Company/Organization name must be at least 2 characters"),
+  city: z.string().min(2, "City is required"),
   partnershipType: z.enum([
-    "agency",
-    "payment-processor",
-    "cfo",
-    "builder",
+    "channel-partner",
+    "developer",
+    "investor",
     "other",
   ]),
-  businessSize: z.string().min(1, "Please provide your current business size"),
+  company: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 

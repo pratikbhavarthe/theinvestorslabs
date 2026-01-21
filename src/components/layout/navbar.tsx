@@ -10,19 +10,17 @@ import { XCircle } from "lucide-react";
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navLinks = [
+  // navLinks moved here to simpler structure without nested services
+  const NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/properties", label: "Properties" },
     { href: "/about", label: "About Us" },
     { href: "/partner", label: "Partner" },
     { href: "/contact", label: "Contact Us" },
-  ];
-
-  // Renaming navLinks to NAV_LINKS as per the snippet, and adding 'id'
-  const NAV_LINKS = navLinks.map((link, index) => ({ ...link, id: index }));
+  ].map((link, index) => ({ ...link, id: index }));
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-honeydew border-b border-dark-amethyst/10 shadow-sm transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-honeydew transition-all duration-300">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo Area */}
@@ -57,7 +55,7 @@ export function Navbar() {
               >
                 Sign In
               </Link>
-              <Link href="/contact">
+              <Link href="/consultation">
                 <InteractiveHoverButton className="bg-white">
                   Talk to Expert
                 </InteractiveHoverButton>
@@ -79,7 +77,7 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-surface-muted transition-colors"
+            className="md:hidden p-2 rounded-lg hover:bg-surface-muted transition-colors relative z-50"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -95,19 +93,19 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-10 border-t border-dark-amethyst/10">
+          <div className="md:hidden fixed inset-0 bg-white z-40 pt-24 px-4 overflow-y-auto">
             <div className="flex flex-col gap-8">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.id}
                   href={link.href}
-                  className="text-dark-amethyst/60 hover:text-indigo-velvet font-bold uppercase tracking-[0.2em] text-xs px-2"
+                  className="text-dark-amethyst/60 hover:text-indigo-velvet font-bold uppercase tracking-[0.2em] text-xs px-2 border-b border-dark-amethyst/5 py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-8 border-t border-dark-amethyst/10 flex flex-col gap-4">
+              <div className="pt-8 flex flex-col gap-4">
                 <SignedOut>
                   <Link
                     href="/sign-in"
@@ -121,7 +119,7 @@ export function Navbar() {
                     </Button>
                   </Link>
                   <Link
-                    href="/contact"
+                    href="/consultation"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <InteractiveHoverButton className="w-full bg-white">
