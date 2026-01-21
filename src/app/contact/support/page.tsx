@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Loader2 } from "lucide-react";
+import { Phone, Mail, Loader2 } from "lucide-react";
+import { ZodIssue } from "zod";
 import {
   supportFormSchema,
   type SupportFormData,
@@ -47,7 +48,7 @@ export default function SupportPage() {
     const result = supportFormSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof SupportFormData, string>> = {};
-      result.error.errors.forEach((error) => {
+      result.error.issues.forEach((error: ZodIssue) => {
         const field = error.path[0] as keyof SupportFormData;
         fieldErrors[field] = error.message;
       });
@@ -108,7 +109,7 @@ export default function SupportPage() {
               GET SUPPORT
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-              We're Here to Help
+              We&apos;re Here to Help
             </h1>
             <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
               24/7/365 support for all your questions and technical issues
@@ -367,7 +368,8 @@ export default function SupportPage() {
                 {submitStatus === "success" && (
                   <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
                     <p className="text-green-800 text-center">
-                      Support request submitted! We'll get back to you soon.
+                      Support request submitted! We&apos;ll get back to you
+                      soon.
                     </p>
                   </div>
                 )}
