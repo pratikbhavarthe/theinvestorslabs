@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
@@ -25,12 +26,15 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo Area */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-dark-amethyst rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-soft">
-              IL
+            <div className="relative h-16 w-48 md:h-20 md:w-72">
+              <Image
+                src="/logo-removebg-preview.png"
+                alt="The Investor Labs"
+                fill
+                className="object-contain object-left"
+                priority
+              />
             </div>
-            <span className="text-xl font-bold text-dark-amethyst hidden sm:block tracking-tight">
-              THEINVESTORLABS
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
