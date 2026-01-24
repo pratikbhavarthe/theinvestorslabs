@@ -2,16 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  Search,
-  MapPin,
-  Building2,
-  Home,
-  TrendingUp,
-  Key,
-  ChevronDown,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Search, ChevronDown } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -19,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 
 export function PropertySearchBar() {
   const router = useRouter();
@@ -106,13 +96,7 @@ export function PropertySearchBar() {
     router.push(`/properties?${params.toString()}`);
   };
 
-  const tabs = [
-    { label: "Buy", value: "Sale", icon: Home },
-    { label: "Rent", value: "Rent", icon: Key },
-    { label: "New Projects", value: "New Projects", icon: Building2 },
-    { label: "Commercial", value: "Commercial", icon: TrendingUp },
-    { label: "Plots", value: "Plots", icon: MapPin },
-  ];
+  // Tabs configuration removed as UI doesn't use it yet (prevents lint error)
 
   return (
     <div className="flex flex-col w-full md:w-auto relative font-sans z-20">
