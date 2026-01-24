@@ -25,17 +25,12 @@ export default clerkMiddleware(async (auth, req) => {
       | { role?: string }
       | undefined;
     const role = publicMetadata?.role;
-    // const email = sessionClaims?.email as string | undefined;
 
-    // Optional: You can keep a basic role check if you want, but since sessionClaims might be missing email,
-    // we will rely on the page-level check for strict enforcement.
-    // If you want to block non-admins strictly at middleware level, you need to ensure claims are correct.
-    // For now, we allow authenticated users to reach the page, where requireAdmin() will strict check them.
-
-    // if (role !== "admin" && (!email || !ADMIN_EMAILS.includes(email))) {
-    //   // Redirect non-admin users to home page
-    //   return NextResponse.redirect(new URL("/", req.url));
-    // }
+    // Strictly enforce admin role
+    if (role !== "admin") {
+      // Redirect non-admin users to home page (or 403 page)
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   }
 });
 
