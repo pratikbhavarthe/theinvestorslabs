@@ -4,7 +4,6 @@ import { useUser, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 export function SaveSearchButton() {
   const { isSignedIn } = useUser();

@@ -10,25 +10,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-export function PropertySearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // State
-  const [activeTab, setActiveTab] = useState<string>("Sale");
-  const [city, setCity] = useState("Noida");
-  const [search, setSearch] = useState("");
+  // State with lazy initialization
   const [mounted, setMounted] = useState(false);
 
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (typeof window === "undefined") return "Sale";
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+    const type = params.get("type");
+    const status = params.get("status");
+
+    if (type === "Commercial") return "Commercial";
+    if (type === "Plot") return "Plots";
+    if (status === "Coming Soon") return "New Projects";
+    if (mode === "rent") return "Rent";
+    return "Sale";
+  });
+
+  const [city, setCity] = useState(() => {
+    if (typeof window === "undefined") return "Noida";
+    return new URLSearchParams(window.location.search).get("city") || "Noida";
+  });
+
+  const [search, setSearch] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return new URLSearchParams(window.location.search).get("search") || "";
+  });
+
   useEffect(() => {
-    const isMounted = true;
-    setMounted(isMounted);
-    return () => {
-      setMounted(false);
-    };
+    setMounted(true);
   }, []);
 
+  // Sync state with URL params on navigation only if they differ
   useEffect(() => {
     if (!mounted) return;
 
@@ -42,14 +59,14 @@ export function PropertySearchBar() {
     else if (status === "Coming Soon") newTab = "New Projects";
     else if (mode === "rent") newTab = "Rent";
 
-    setActiveTab((prev) => (prev !== newTab ? newTab : prev));
+    if (activeTab !== newTab) setActiveTab(newTab);
 
     const cityParam = searchParams.get("city");
     const searchParam = searchParams.get("search");
 
-    if (cityParam) setCity((prev) => (prev !== cityParam ? cityParam : prev));
-    if (searchParam)
-      setSearch((prev) => (prev !== searchParam ? searchParam : prev));
+    if (cityParam && city !== cityParam) setCity(cityParam);
+    if (searchParam && search !== searchParam) setSearch(searchParam);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, mounted]);
 
   if (!mounted) {

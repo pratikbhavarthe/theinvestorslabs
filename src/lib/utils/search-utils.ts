@@ -35,7 +35,7 @@ export function searchProperties(
  */
 export function filterByType(
   properties: Property[],
-  type: "buy" | "sell" | "rent",
+  _type: "buy" | "sell" | "rent",
 ): Property[] {
   // For now, we'll return all properties as the current data doesn't have type distinction
   // This can be extended when the Property type includes a transaction type field
