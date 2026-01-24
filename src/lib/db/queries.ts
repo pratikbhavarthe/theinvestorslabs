@@ -407,6 +407,7 @@ export interface InquiryFilters {
   status?: string;
   limit?: number;
   offset?: number;
+  search?: string;
 }
 
 export async function getInquiries(filters: InquiryFilters = {}) {
