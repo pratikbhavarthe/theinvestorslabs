@@ -32,26 +32,35 @@ export function PropertySearchBar() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const isMounted = true;
+    setMounted(isMounted);
+    return () => {
+      setMounted(false);
+    };
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const mode = searchParams.get("mode");
     const type = searchParams.get("type");
     const status = searchParams.get("status");
 
-    if (type === "Commercial") setActiveTab("Commercial");
-    else if (type === "Plot") setActiveTab("Plots");
-    else if (status === "Coming Soon") setActiveTab("New Projects");
-    else if (mode === "rent") setActiveTab("Rent");
-    else setActiveTab("Sale");
+    let newTab = "Sale";
+    if (type === "Commercial") newTab = "Commercial";
+    else if (type === "Plot") newTab = "Plots";
+    else if (status === "Coming Soon") newTab = "New Projects";
+    else if (mode === "rent") newTab = "Rent";
+
+    setActiveTab((prev) => (prev !== newTab ? newTab : prev));
 
     const cityParam = searchParams.get("city");
     const searchParam = searchParams.get("search");
 
-    if (cityParam) setCity(cityParam);
-    if (searchParam) setSearch(searchParam);
-  }, [searchParams]);
+    if (cityParam) setCity((prev) => (prev !== cityParam ? cityParam : prev));
+    if (searchParam)
+      setSearch((prev) => (prev !== searchParam ? searchParam : prev));
+  }, [searchParams, mounted]);
 
   if (!mounted) {
     return (

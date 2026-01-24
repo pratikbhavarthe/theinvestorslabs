@@ -22,6 +22,40 @@ interface PageProps {
   }>;
 }
 
+// Type Definitions
+type Lead = {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  message: string | null;
+  createdAt: Date;
+  propertyId: string | null;
+};
+
+type Inquiry = {
+  id: string;
+  type: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  message: string | null;
+  status: string | null;
+  createdAt: Date;
+};
+
+type NormalizedItem = {
+  id: string;
+  type: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  message: string | null;
+  status: string;
+  date: Date;
+  source: string;
+};
+
 export default async function LeadsPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const search = params.search;
@@ -29,8 +63,8 @@ export default async function LeadsPage({ searchParams }: PageProps) {
   const status = params.status;
 
   // Conditional Data Fetching
-  let leads: any[] = [];
-  let inquiries: any[] = [];
+  let leads: Lead[] = [];
+  let inquiries: Inquiry[] = [];
 
   const shouldFetchLeads = !type || type === "all" || type === "property";
   const shouldFetchInquiries = !type || type === "all" || type !== "property";
@@ -49,11 +83,11 @@ export default async function LeadsPage({ searchParams }: PageProps) {
       : Promise.resolve({ items: [] }),
   ]);
 
-  leads = results[0].items;
-  inquiries = results[1].items;
+  leads = results[0].items as Lead[];
+  inquiries = results[1].items as Inquiry[];
 
   // Normalize and combine data
-  const normalizedLeads = leads.map((lead) => ({
+  const normalizedLeads: NormalizedItem[] = leads.map((lead) => ({
     id: lead.id,
     type: "Property Lead",
     name: lead.name,
@@ -61,11 +95,11 @@ export default async function LeadsPage({ searchParams }: PageProps) {
     phone: lead.phone,
     message: lead.message,
     status: "New", // Leads table default
-    date: lead.createdAt,
+    date: new Date(lead.createdAt),
     source: "Property Page",
   }));
 
-  const normalizedInquiries = inquiries.map((inq) => ({
+  const normalizedInquiries: NormalizedItem[] = inquiries.map((inq) => ({
     id: inq.id,
     type: inq.type,
     name: inq.name,
@@ -73,7 +107,7 @@ export default async function LeadsPage({ searchParams }: PageProps) {
     phone: inq.phone,
     message: inq.message,
     status: inq.status || "New",
-    date: inq.createdAt,
+    date: new Date(inq.createdAt),
     source: "Contact Form",
   }));
 

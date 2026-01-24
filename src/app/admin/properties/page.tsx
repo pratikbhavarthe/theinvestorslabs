@@ -28,7 +28,9 @@ export default async function PropertiesPage({ searchParams }: PageProps) {
         search: params.search,
         city: params.city,
         status: params.status,
-        sort: (params.sort as any) || "recent",
+        sort:
+          (params.sort as import("@/lib/db/queries").PropertyFilters["sort"]) ||
+          "recent",
       }),
       getPropertyCount(),
       getPropertyCount({ status: "Available" }),

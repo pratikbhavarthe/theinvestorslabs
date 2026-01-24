@@ -153,8 +153,7 @@ export default async function AdminDashboard() {
                         submitted a {activity.type} form.
                       </p>
                       <p className="text-xs text-muted-foreground pt-1">
-                        IP: 203.0.113.{Math.floor(Math.random() * 255)} •{" "}
-                        {activity.date.toLocaleString()}
+                        IP: 203.0.113.42 • {activity.date.toLocaleString()}
                       </p>
                     </div>
                   </div>
