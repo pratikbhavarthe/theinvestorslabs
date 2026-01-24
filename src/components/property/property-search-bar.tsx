@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+export function PropertySearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
