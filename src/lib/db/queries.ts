@@ -324,6 +324,7 @@ export interface LeadFilters {
   propertyId?: string;
   limit?: number;
   offset?: number;
+  search?: string;
 }
 
 /**
