@@ -37,6 +37,13 @@ export const properties = pgTable(
     view: text("view"),
     scores: text("scores"),
     configuration: varchar("configuration", { length: 50 }), // e.g., "1 BHK", "2 BHK", etc.
+    listingType: varchar("listing_type", { length: 20 })
+      .notNull()
+      .default("Sale"), // Sale, Rent
+    furnishing: varchar("furnishing", { length: 20 }), // Semi-Furnished, Fully-Furnished, Unfurnished
+    tenantPreference: varchar("tenant_preference", { length: 50 }), // Family, Bachelors, Any
+    availableFrom: timestamp("available_from"),
+    carpetArea: integer("carpet_area"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
   },
@@ -46,6 +53,7 @@ export const properties = pgTable(
     statusIdx: index("status_idx").on(table.status),
     featuredIdx: index("featured_idx").on(table.featured),
     priceIdx: index("price_idx").on(table.price),
+    listingTypeIdx: index("listing_type_idx").on(table.listingType),
   }),
 );
 

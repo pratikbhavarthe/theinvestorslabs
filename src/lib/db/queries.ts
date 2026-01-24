@@ -17,8 +17,12 @@ export interface PropertyFilters {
   maxArea?: number;
   featured?: boolean;
   facing?: string | string[];
+  listingType?: string; // Sale, Rent
+  furnishing?: string | string[];
+  tenantPreference?: string | string[];
   limit?: number;
   offset?: number;
+  search?: string;
   sort?:
     | "relevance"
     | "price_asc"
@@ -43,12 +47,23 @@ export async function getProperties(filters: PropertyFilters = {}) {
     maxArea,
     featured,
     facing,
+    listingType,
+    furnishing,
+    tenantPreference,
     limit = 12,
     offset = 0,
     sort = "relevance",
+    search,
   } = filters;
 
   const conditions = [];
+
+  if (search) {
+    const searchLower = `%${search.toLowerCase()}%`;
+    conditions.push(
+      sql`lower(${properties.title}) LIKE ${searchLower} OR lower(${properties.sector}) LIKE ${searchLower} OR lower(${properties.city}) LIKE ${searchLower}`,
+    );
+  }
 
   if (city) {
     if (Array.isArray(city)) {
@@ -58,11 +73,33 @@ export async function getProperties(filters: PropertyFilters = {}) {
     }
   }
 
+  if (listingType) {
+    conditions.push(eq(properties.listingType, listingType));
+  }
+
   if (propertyType) {
     if (Array.isArray(propertyType)) {
       conditions.push(sql`${properties.propertyType} IN ${propertyType}`);
     } else {
       conditions.push(eq(properties.propertyType, propertyType));
+    }
+  }
+
+  if (furnishing) {
+    if (Array.isArray(furnishing)) {
+      conditions.push(sql`${properties.furnishing} IN ${furnishing}`);
+    } else {
+      conditions.push(eq(properties.furnishing, furnishing));
+    }
+  }
+
+  if (tenantPreference) {
+    if (Array.isArray(tenantPreference)) {
+      conditions.push(
+        sql`${properties.tenantPreference} IN ${tenantPreference}`,
+      );
+    } else {
+      conditions.push(eq(properties.tenantPreference, tenantPreference));
     }
   }
 
@@ -308,9 +345,18 @@ export async function createLead(data: typeof leads.$inferInsert) {
  * Get leads with optional filters (admin only)
  */
 export async function getLeads(filters: LeadFilters = {}) {
-  const { propertyId, limit = 50, offset = 0 } = filters;
+  const { propertyId, limit = 50, offset = 0, search } = filters;
 
-  const whereClause = propertyId ? eq(leads.propertyId, propertyId) : undefined;
+  const conditions = [];
+  if (propertyId) conditions.push(eq(leads.propertyId, propertyId));
+  if (search) {
+    const searchLower = `%${search.toLowerCase()}%`;
+    conditions.push(
+      sql`lower(${leads.name}) LIKE ${searchLower} OR lower(${leads.email}) LIKE ${searchLower}`,
+    );
+  }
+
+  const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
   const [items, totalCount] = await Promise.all([
     db
@@ -349,4 +395,206 @@ export async function getLeadCount() {
 
 export async function createInquiry(data: NewInquiry) {
   return await db.insert(inquiries).values(data).returning();
+}
+
+// ============================================
+// Dashboard Queries
+// ============================================
+
+export interface InquiryFilters {
+  type?: string;
+  status?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export async function getInquiries(filters: InquiryFilters = {}) {
+  const { type, status, limit = 50, offset = 0, search } = filters;
+
+  const conditions = [];
+
+  if (type) conditions.push(eq(inquiries.type, type));
+  if (status) conditions.push(eq(inquiries.status, status));
+  if (search) {
+    const searchLower = `%${search.toLowerCase()}%`;
+    conditions.push(
+      sql`lower(${inquiries.name}) LIKE ${searchLower} OR lower(${inquiries.email}) LIKE ${searchLower}`,
+    );
+  }
+
+  const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+  const [items, totalCount] = await Promise.all([
+    db
+      .select()
+      .from(inquiries)
+      .where(whereClause)
+      .orderBy(desc(inquiries.createdAt))
+      .limit(limit)
+      .offset(offset),
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(inquiries)
+      .where(whereClause)
+      .then((result) => Number(result[0]?.count ?? 0)),
+  ]);
+
+  return {
+    items,
+    total: totalCount,
+    hasMore: offset + items.length < totalCount,
+  };
+}
+
+export async function getDashboardStats() {
+  const [
+    totalProperties,
+    availableProperties,
+    soldProperties,
+    totalLeads,
+    totalInquiries,
+    recentActivity,
+    marketValue,
+    monthlyStats, // Add this to destructuring
+  ] = await Promise.all([
+    // 1. Total Properties
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(properties)
+      .then((res) => res[0]?.count ?? 0),
+
+    // 2. Available Properties
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(properties)
+      .where(eq(properties.status, "Available"))
+      .then((res) => res[0]?.count ?? 0),
+
+    // 3. Sold Properties
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(properties)
+      .where(eq(properties.status, "Sold"))
+      .then((res) => res[0]?.count ?? 0),
+
+    // 4. Total Leads
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(leads)
+      .then((res) => res[0]?.count ?? 0),
+
+    // 5. Total Inquiries
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(inquiries)
+      .then((res) => res[0]?.count ?? 0),
+
+    // 6. Recent Activity (Combined Leads & Inquiries)
+    Promise.all([
+      db
+        .select({
+          id: leads.id,
+          type: sql<string>`'Lead'`,
+          name: leads.name,
+          date: leads.createdAt,
+          message: leads.message,
+        })
+        .from(leads)
+        .orderBy(desc(leads.createdAt))
+        .limit(5),
+
+      db
+        .select({
+          id: inquiries.id,
+          type: inquiries.type,
+          name: inquiries.name,
+          date: inquiries.createdAt,
+          message: inquiries.message,
+        })
+        .from(inquiries)
+        .orderBy(desc(inquiries.createdAt))
+        .limit(5),
+    ]).then(([leads, inquiries]) => {
+      return [...leads, ...inquiries]
+        .sort((a, b) => b.date.getTime() - a.date.getTime())
+        .slice(0, 5);
+    }),
+
+    // 7. Total Asset Value (Sum of price of Available properties)
+    db
+      .select({ value: sql<number>`sum(${properties.price})` })
+      .from(properties)
+      .where(eq(properties.status, "Available"))
+      .then((res) => res[0]?.value ?? 0),
+
+    // 8. Real Monthly Analytics
+    getMonthlyLeadStats(),
+  ]);
+
+  return {
+    overview: {
+      totalProperties,
+      activeListings: availableProperties,
+      soldProperties,
+      totalLeads,
+      totalInquiries,
+      totalAssetValue: marketValue,
+    },
+    recentActivity,
+    monthlyData: monthlyStats,
+  };
+}
+
+async function getMonthlyLeadStats() {
+  // In a real PostgreSQL environment, we would use `date_trunc`.
+  // Since we are using Drizzle/Neon, we can fetch all leads and aggregate in JS for simplicity/compatibility
+  // without complex raw SQL for now, assuming modest data volume.
+
+  const allLeads = await db.select({ createdAt: leads.createdAt }).from(leads);
+  const allInquiries = await db
+    .select({ createdAt: inquiries.createdAt })
+    .from(inquiries);
+
+  const monthMap = new Map<
+    string,
+    { name: string; leads: number; inquiries: number }
+  >();
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Initialize current year months
+  months.forEach((m) => monthMap.set(m, { name: m, leads: 0, inquiries: 0 }));
+
+  const currentYear = new Date().getFullYear();
+
+  allLeads.forEach((l) => {
+    if (l.createdAt.getFullYear() === currentYear) {
+      const m = months[l.createdAt.getMonth()];
+      const entry = monthMap.get(m)!;
+      entry.leads++;
+    }
+  });
+
+  allInquiries.forEach((i) => {
+    if (i.createdAt.getFullYear() === currentYear) {
+      const m = months[i.createdAt.getMonth()];
+      const entry = monthMap.get(m)!;
+      entry.inquiries++;
+    }
+  });
+
+  // Return array sorted by month index
+  return Array.from(monthMap.values());
 }

@@ -12,7 +12,7 @@ export function JourneyCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative bg-honeydew/50 rounded-[2.5rem] p-10 md:p-16 overflow-hidden"
+          className="relative bg-gray-200 rounded-[2.5rem] p-10 md:p-16 overflow-hidden"
         >
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="max-w-xl text-center md:text-left">

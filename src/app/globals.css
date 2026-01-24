@@ -9,32 +9,70 @@
     var(--font-plus-jakarta, "Plus Jakarta Sans"), ui-sans-serif, system-ui,
     sans-serif;
 
-  /* Brand Colors - NEW AMETHYST & INDIGO PALETTE */
-  --color-indigo-velvet: #573280;
-  --color-dark-amethyst: #23022e;
-  --color-lilac-ash: #ada8b6;
-  --color-dust-grey: #cecfc7;
-  --color-honeydew: #eff8e2;
+  /* Brand Colors - TRUSTED REALTY BLUE PALETTE */
+  --color-realty-blue: #1f5eff;
+  --color-deep-estate: #1b2b55;
+  --color-skyline-blue: #eaf0ff;
+  --color-muted-amber: #f4b740;
+
+  /* Legacy Map (Aliases to enforce new brand across old components) */
+  --color-indigo-velvet: var(--color-realty-blue);
+  --color-dark-amethyst: var(--color-deep-estate);
+  --color-honeydew: var(
+    --color-skyline-blue
+  ); /* Was light green, now light blue */
+  --color-lilac-ash: var(--color-slate-gray);
+  --color-dust-grey: var(--color-cool-gray);
+
+  /* Neutrals */
+  --color-off-white: #f8f9fb;
+  --color-cool-gray: #e1e5ee;
+  --color-ink-navy: #1a1f36;
+  --color-slate-gray: #6b7280;
   --color-white: #ffffff;
 
-  /* Re-mapping Semantic Variables with Direct Values */
-  --color-primary: #573280; /* Indigo Velvet */
+  /* Semantic Mapping */
+  --color-brand-primary: var(--color-realty-blue);
+  --color-brand-dark: var(--color-deep-estate);
+  --color-brand-accent: var(--color-muted-amber);
+  --color-brand-base: var(--color-skyline-blue); /* Light Blue Backgrounds */
+  --color-brand-surface: var(--color-off-white); /* Main Page Background */
+
+  /* Standard Tailwind Overrides / Shadcn */
+  --color-primary: var(--color-realty-blue);
   --color-primary-foreground: #ffffff;
 
-  --color-secondary: #23022e; /* Dark Amethyst */
-  --color-secondary-foreground: #ffffff;
+  --color-secondary: var(--color-skyline-blue);
+  --color-secondary-foreground: var(--color-realty-blue);
 
-  --color-accent: #ada8b6; /* Lilac Ash */
+  --color-accent: var(--color-skyline-blue);
+  --color-accent-foreground: var(--color-realty-blue);
 
-  --color-text-primary: #23022e;
-  --color-text-secondary: #573280;
-  --color-border: #cecfc7;
+  --color-text-primary: var(--color-ink-navy);
+  --color-text-secondary: var(--color-slate-gray);
+
+  --color-border: var(--color-cool-gray);
+  --color-input: var(--color-cool-gray);
+  --color-ring: var(--color-realty-blue);
+
   --color-bg: #ffffff;
 
+  /* Aliases for Shadcn/Standard compatibility */
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-bg);
+  --color-card-foreground: var(--color-text-primary);
+  --color-popover: var(--color-bg);
+  --color-popover-foreground: var(--color-text-primary);
+  --color-muted: var(--color-off-white);
+  --color-muted-foreground: var(--color-slate-gray);
+  --color-destruct: #ef4444;
+  --color-destruct-foreground: #ffffff;
+
   /* Surface variations */
-  --color-surface-deep: #23022e;
-  --color-surface-accent: #ada8b6;
-  --color-surface-muted: #eff8e2;
+  --color-surface-deep: var(--color-deep-estate);
+  --color-surface-accent: var(--color-skyline-blue);
+  --color-surface-muted: var(--color-off-white);
 
   /* Custom Animations */
   @keyframes spin-slow {
@@ -46,6 +84,17 @@
     }
   }
   --animate-spin-slow: spin-slow 3s linear infinite;
+
+  /* Sidebar Variables (added by shadcn) */
+  /* Sidebar Variables (added by shadcn) */
+  --color-sidebar: #f8f9fa; /* Light Grey Surface */
+  --color-sidebar-foreground: #000000;
+  --color-sidebar-primary: #006aff;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #eff6ff; /* Light Blue Hover */
+  --color-sidebar-accent-foreground: #006aff;
+  --color-sidebar-border: #e2e8f0;
+  --color-sidebar-ring: #006aff;
 }
 
 @layer base {
@@ -67,6 +116,13 @@
     color: var(--color-text-primary);
     font-weight: 700;
     letter-spacing: -0.01em;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
@@ -101,48 +157,5 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-}
-
-:root {
-  --sidebar: hsl(261 9% 69%); /* Lilac Ash #ADA8B6 */
-  --sidebar-foreground: hsl(285 92% 9%); /* Dark Amethyst #23022E */
-  --sidebar-primary: hsl(268 44% 35%); /* Indigo Velvet #573280 */
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(261 9% 65%);
-  --sidebar-accent-foreground: hsl(285 92% 9%);
-  --sidebar-border: hsla(285, 92%, 9%, 0.1);
-  --sidebar-ring: hsl(268 44% 35%);
-}
-
-.dark {
-  --sidebar: hsl(285 92% 9%);
-  --sidebar-foreground: hsl(261 9% 80%);
-  --sidebar-primary: hsl(268 44% 35%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(285 92% 15%);
-  --sidebar-accent-foreground: hsl(261 9% 80%);
-  --sidebar-border: hsla(261, 9%, 80%, 0.1);
-  --sidebar-ring: hsl(268 44% 35%);
-}
-
-@theme inline {
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
-  body {
-    background-color: var(--color-bg);
-    color: var(--color-text-primary);
   }
 }

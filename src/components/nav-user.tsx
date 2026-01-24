@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -45,27 +38,27 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-dark-amethyst/10 data-[state=open]:text-dark-amethyst"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg bg-indigo-velvet text-white">
+                <AvatarFallback className="rounded-lg bg-brand-primary text-white">
                   {user.name.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold text-dark-amethyst">
+                <span className="truncate font-semibold text-foreground">
                   {user.name}
                 </span>
-                <span className="truncate text-xs text-dark-amethyst/60">
+                <span className="truncate text-xs text-muted-foreground">
                   {user.email}
                 </span>
               </div>
-              <ChevronsUpDown className="ml-auto size-4 text-dark-amethyst/60" />
+              <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-white"
+            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-xl bg-popover"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
@@ -74,45 +67,34 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg bg-indigo-velvet text-white">
+                  <AvatarFallback className="rounded-lg bg-brand-primary text-white">
                     {user.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold text-dark-amethyst">
+                  <span className="truncate font-semibold text-foreground">
                     {user.name}
                   </span>
-                  <span className="truncate text-xs text-dark-amethyst/60">
+                  <span className="truncate text-xs text-muted-foreground">
                     {user.email}
                   </span>
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator className="bg-dark-amethyst/10" />
+            <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="text-dark-amethyst hover:bg-dark-amethyst/5 focus:bg-dark-amethyst/5">
-                <Sparkles className="mr-2 size-4" />
-                Upgrade to Pro
+              <DropdownMenuItem className="cursor-pointer">
+                <User className="mr-2 size-4 opacity-70" />
+                My Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <Settings className="mr-2 size-4 opacity-70" />
+                Platform Settings
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator className="bg-dark-amethyst/10" />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="text-dark-amethyst hover:bg-dark-amethyst/5 focus:bg-dark-amethyst/5">
-                <BadgeCheck className="mr-2 size-4" />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-dark-amethyst hover:bg-dark-amethyst/5 focus:bg-dark-amethyst/5">
-                <CreditCard className="mr-2 size-4" />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-dark-amethyst hover:bg-dark-amethyst/5 focus:bg-dark-amethyst/5">
-                <Bell className="mr-2 size-4" />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator className="bg-dark-amethyst/10" />
+            <DropdownMenuSeparator />
             <SignOutButton>
-              <DropdownMenuItem className="text-red-600 hover:bg-red-50 focus:bg-red-50 cursor-pointer">
+              <DropdownMenuItem className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer">
                 <LogOut className="mr-2 size-4" />
                 Log out
               </DropdownMenuItem>

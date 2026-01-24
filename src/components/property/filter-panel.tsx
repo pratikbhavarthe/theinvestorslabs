@@ -63,19 +63,20 @@ export function FilterSidebar() {
 
   return (
     <div
-      className={`w-full bg-white border border-dust-grey/10 rounded-2xl p-6 sticky top-32 transition-opacity duration-300 ${isPending ? "opacity-50 pointer-events-none" : "opacity-100"}`}
+      className={`w-full bg-indigo-velvet border border-white/10 rounded-2xl p-6 sticky top-32 transition-opacity duration-300 ${isPending ? "opacity-50 pointer-events-none" : "opacity-100"}`}
     >
       {/* Sidebar Tabs */}
-      <div className="flex items-center gap-1 border-b border-dust-grey/10 mb-8 pb-1">
-        <button className="flex-1 py-3 text-[10px] font-bold uppercase tracking-widest text-indigo-velvet border-b-2 border-indigo-velvet">
+      {/* Sidebar Tabs */}
+      <div className="flex items-center gap-1 border-b border-white/10 mb-8 pb-1">
+        <button className="flex-1 py-3 text-[10px] font-bold uppercase tracking-widest text-white border-b-2 border-white">
           Filters{" "}
-          <span className="ml-1 text-[8px] bg-indigo-velvet text-white px-1.5 py-0.5 rounded-full">
+          <span className="ml-1 text-[8px] bg-white text-indigo-velvet px-1.5 py-0.5 rounded-full">
             {activeFilterCount}
           </span>
         </button>
-        <button className="flex-1 py-3 text-[10px] font-bold uppercase tracking-widest text-dark-amethyst/40 hover:text-dark-amethyst transition-colors">
+        <button className="flex-1 py-3 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors">
           Premium{" "}
-          <Badge className="ml-1 bg-indigo-velvet/10 text-indigo-velvet border-none text-[8px] px-1 py-0 shadow-none">
+          <Badge className="ml-1 bg-white/10 text-white border-none text-[8px] px-1 py-0 shadow-none">
             New
           </Badge>
         </button>
@@ -84,7 +85,7 @@ export function FilterSidebar() {
       <div className="space-y-10 max-h-[calc(100vh-320px)] overflow-y-auto pr-2 scrollbar-hide">
         {/* BHK Type Grid */}
         <div className="space-y-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-dark-amethyst/60">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
             BHK Type
           </p>
           <div className="grid grid-cols-3 gap-2">
@@ -95,8 +96,8 @@ export function FilterSidebar() {
                   onClick={() => updateFilters({ config: val })}
                   className={`py-2 px-1 rounded-md text-[10px] font-bold border transition-all ${
                     config === val
-                      ? "bg-indigo-velvet text-white border-indigo-velvet"
-                      : "bg-white text-dark-amethyst/60 border-dust-grey/20 hover:border-indigo-velvet/30"
+                      ? "bg-white text-indigo-velvet border-white"
+                      : "bg-transparent text-white/60 border-white/20 hover:border-white/40"
                   }`}
                 >
                   {val}
@@ -109,23 +110,21 @@ export function FilterSidebar() {
         {/* Price Slider Shorthand */}
         <div className="space-y-5">
           <div className="flex items-center justify-between">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-dark-amethyst/60">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
               Price Range
             </p>
-            <p className="text-[10px] font-bold text-indigo-velvet">
-              ₹0 to ₹5 Cr
-            </p>
+            <p className="text-[10px] font-bold text-white">₹0 to ₹5 Cr</p>
           </div>
-          <div className="relative h-1 w-full bg-dust-grey/10 rounded-full">
-            <div className="absolute top-0 left-0 w-3/4 h-full bg-indigo-velvet rounded-full" />
-            <div className="absolute -top-1.5 left-0 h-4 w-4 bg-white border-2 border-indigo-velvet rounded-full shadow-md" />
-            <div className="absolute -top-1.5 left-3/4 h-4 w-4 bg-white border-2 border-indigo-velvet rounded-full shadow-md" />
+          <div className="relative h-1 w-full bg-white/10 rounded-full">
+            <div className="absolute top-0 left-0 w-3/4 h-full bg-white rounded-full" />
+            <div className="absolute -top-1.5 left-0 h-4 w-4 bg-indigo-velvet border-2 border-white rounded-full shadow-md" />
+            <div className="absolute -top-1.5 left-3/4 h-4 w-4 bg-indigo-velvet border-2 border-white rounded-full shadow-md" />
           </div>
         </div>
 
         {/* Visit Availability Checkboxes */}
         <div className="space-y-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-dark-amethyst/60">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
             Availability
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -142,9 +141,9 @@ export function FilterSidebar() {
                 <input
                   type="radio"
                   name="availability"
-                  className="accent-indigo-velvet h-3.5 w-3.5"
+                  className="accent-white h-3.5 w-3.5"
                 />
-                <span className="text-[11px] font-medium text-dark-amethyst/60 group-hover:text-dark-amethyst">
+                <span className="text-[11px] font-medium text-white/60 group-hover:text-white">
                   {val}
                 </span>
               </label>
@@ -154,7 +153,7 @@ export function FilterSidebar() {
 
         {/* Preferred Tenants */}
         <div className="space-y-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-dark-amethyst/60">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
             Preferred Tenants
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -164,13 +163,13 @@ export function FilterSidebar() {
                   key={val}
                   className="flex items-center gap-3 cursor-pointer group"
                 >
-                  <div className="h-4 w-4 border border-dust-grey/30 rounded focus-within:border-indigo-velvet">
+                  <div className="h-4 w-4 border border-white/30 rounded focus-within:border-white">
                     <input
                       type="checkbox"
                       className="opacity-0 absolute h-0 w-0"
                     />
                   </div>
-                  <span className="text-[11px] font-medium text-dark-amethyst/60 group-hover:text-dark-amethyst">
+                  <span className="text-[11px] font-medium text-white/60 group-hover:text-white">
                     {val}
                   </span>
                 </label>
@@ -181,7 +180,7 @@ export function FilterSidebar() {
 
         {/* Property Type */}
         <div className="space-y-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-dark-amethyst/60">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
             Property Type
           </p>
           <div className="space-y-3">
@@ -194,13 +193,13 @@ export function FilterSidebar() {
                 key={val}
                 className="flex items-center gap-3 cursor-pointer group"
               >
-                <div className="h-4 w-4 border border-dust-grey/30 rounded focus-within:border-indigo-velvet">
+                <div className="h-4 w-4 border border-white/30 rounded focus-within:border-white">
                   <input
                     type="checkbox"
                     className="opacity-0 absolute h-0 w-0"
                   />
                 </div>
-                <span className="text-[11px] font-medium text-dark-amethyst/60 group-hover:text-dark-amethyst">
+                <span className="text-[11px] font-medium text-white/60 group-hover:text-white">
                   {val}
                 </span>
               </label>
@@ -210,10 +209,10 @@ export function FilterSidebar() {
       </div>
 
       {/* Reset Footer */}
-      <div className="mt-8 pt-6 border-t border-dust-grey/10 flex justify-end">
+      <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
         <button
           onClick={clearFilters}
-          className="flex items-center gap-2 text-[10px] font-bold text-dark-amethyst/40 hover:text-indigo-velvet transition-colors uppercase tracking-widest"
+          className="flex items-center gap-2 text-[10px] font-bold text-white/40 hover:text-white transition-colors uppercase tracking-widest"
         >
           <RefreshCcw className="h-3 w-3" />
           Reset All

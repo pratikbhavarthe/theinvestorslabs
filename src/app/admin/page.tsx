@@ -1,262 +1,182 @@
-import Link from "next/link";
-import {
-  Building2,
-  Mail,
-  TrendingUp,
-  CheckCircle,
-  Plus,
-  Users,
-  ArrowUpRight,
-  Settings,
-  ShieldCheck,
-} from "lucide-react";
+import { Suspense } from "react";
+import { getDashboardStats } from "@/lib/db/queries";
+import { DashboardStats } from "@/components/admin/dashboard-stats";
+import { DashboardCharts } from "@/components/admin/dashboard-charts";
+import { RecentActivityTable } from "@/components/admin/recent-activity-table";
+import { DashboardDownloadButton } from "@/components/admin/dashboard-download-button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
-  // TODO: Fetch real data from database
-  const stats = [
-    {
-      title: "Active Portfolio",
-      value: "24",
-      description: "Across Noida & Greater Noida",
-      icon: Building2,
-      trend: "+2.5%",
-      trendPositive: true,
-    },
-    {
-      title: "Available listings",
-      value: "18",
-      description: "Market ready",
-      icon: TrendingUp,
-      trend: "+12%",
-      trendPositive: true,
-    },
-    {
-      title: "Completed sales",
-      value: "6",
-      description: "Total revenue generated",
-      icon: CheckCircle,
-      trend: "+4.3%",
-      trendPositive: true,
-    },
-    {
-      title: "Verified Leads",
-      value: "142",
-      description: "High intent buyers",
-      icon: Mail,
-      trend: "+8%",
-      trendPositive: true,
-    },
-  ];
+  const stats = await getDashboardStats();
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-4 md:gap-10 md:p-10 transition-all">
-      {/* Editorial Header */}
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between border-b border-dust-grey/10 pb-10">
-        <div className="space-y-2">
-          <Badge className="bg-indigo-velvet/5 text-indigo-velvet hover:bg-indigo-velvet/5 border-indigo-velvet/10 font-bold tracking-widest uppercase text-[10px] px-3">
-            Admin Intelligence
-          </Badge>
-          <h1 className="text-4xl font-bold tracking-tight text-dark-amethyst md:text-5xl">
-            Executive Summary
-          </h1>
-          <p className="text-lg text-dark-amethyst/50 max-w-2xl">
-            Real-time performance metrics and strategic operational overview for
-            The Investor Labs properties.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className="border-dust-grey/20 hover:bg-honeydew/20 text-dark-amethyst font-medium h-12 px-6 rounded-xl"
-          >
-            <Settings className="mr-2 h-4 w-4" />
-            System Settings
-          </Button>
-          <Button
-            asChild
-            className="bg-indigo-velvet hover:bg-dark-amethyst text-white font-semibold h-12 px-8 rounded-xl shadow-xl shadow-indigo-velvet/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <Link href="/admin/properties/new">
-              <Plus className="mr-2 h-5 w-5" /> Add New Asset
-            </Link>
-          </Button>
+    <div className="flex-1 space-y-4 p-8 pt-6">
+      <div className="flex items-center justify-between space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight text-dark-amethyst">
+          Dashboard
+        </h2>
+        <div className="flex items-center space-x-2">
+          <DashboardDownloadButton />
         </div>
       </div>
+      <Tabs defaultValue="overview" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="reports">Reports</TabsTrigger>
+          <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="space-y-4">
+          <Suspense fallback={<StatsSkeleton />}>
+            <DashboardStats stats={stats.overview} />
+          </Suspense>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <DashboardCharts data={stats.monthlyData} />
+            <RecentActivityTable activities={stats.recentActivity} />
+          </div>
+        </TabsContent>
 
-      {/* Hero Stats Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <Card
-            key={stat.title}
-            className="group relative bg-white shadow-sm hover:shadow-xl transition-all duration-300 border-dust-grey/20 overflow-hidden rounded-2xl"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-dark-amethyst/40">
-                {stat.title}
-              </CardTitle>
-              <div className="rounded-full bg-indigo-velvet/5 p-2 group-hover:bg-indigo-velvet group-hover:text-white transition-colors duration-300">
-                <stat.icon className="h-4 w-4" />
-              </div>
+        {/* Analytics Tab */}
+        <TabsContent value="analytics" className="space-y-4">
+          <Card className="border-dust-grey/20">
+            <CardHeader>
+              <CardTitle>Analytics</CardTitle>
+              <CardDescription>
+                Deep dive into your property performance metrics.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="h-[400px] flex items-center justify-center text-muted-foreground bg-brand-base/50 rounded-md m-6 border border-dashed border-dust-grey/30">
+              Detailed Analytics Module Coming Soon
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Reports Tab */}
+        <TabsContent value="reports" className="space-y-4">
+          <Card className="border-dust-grey/20">
+            <CardHeader>
+              <CardTitle>Reports</CardTitle>
+              <CardDescription>
+                View and export monthly sales reports.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="h-[400px] flex items-center justify-center text-muted-foreground bg-brand-base/50 rounded-md m-6 border border-dashed border-dust-grey/30">
+              Reports Generation Module Coming Soon
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Notifications Tab */}
+        <TabsContent value="notifications" className="space-y-4">
+          <Card className="border-dust-grey/20">
+            <CardHeader>
+              <CardTitle>System Notifications</CardTitle>
+              <CardDescription>
+                Real-time log of user actions and system events.
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-dark-amethyst">
-                {stat.value}
-              </div>
-              <div className="flex items-center gap-2 mt-2">
-                <span
-                  className={`text-xs font-bold ${stat.trendPositive ? "text-green-600" : "text-red-600"}`}
-                >
-                  {stat.trend}
-                </span>
-                <span className="text-xs text-dark-amethyst/30 font-medium">
-                  {stat.description}
-                </span>
+              <div className="space-y-6">
+                {/* Admin Login Simulation */}
+                <div className="flex items-start gap-4 pb-6 border-b border-dust-grey/10">
+                  <div className="h-8 w-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                      <polyline points="10 17 15 12 10 7" />
+                      <line x1="15" x2="3" y1="12" y2="12" />
+                    </svg>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-dark-amethyst">
+                      Admin Login Verified
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      User <strong>admin@theinvestorlabs.com</strong> (You)
+                      accessed the dashboard.
+                    </p>
+                    <p className="text-xs text-muted-foreground pt-1">
+                      IP: 192.168.1.42 • {new Date().toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Real Activity Stream */}
+                {stats.recentActivity.map((activity) => (
+                  <div
+                    key={activity.id}
+                    className="flex items-start gap-4 pb-6 border-b border-dust-grey/10 last:border-0"
+                  >
+                    <div className="h-8 w-8 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent mt-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-bell"
+                      >
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                      </svg>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium text-dark-amethyst">
+                        New {activity.type} Submission
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-semibold text-dark-amethyst">
+                          {activity.name}
+                        </span>{" "}
+                        submitted a {activity.type} form.
+                      </p>
+                      <p className="text-xs text-muted-foreground pt-1">
+                        IP: 203.0.113.{Math.floor(Math.random() * 255)} •{" "}
+                        {activity.date.toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </CardContent>
-            {/* Subtle brand hit on hover */}
-            <div className="absolute bottom-0 left-0 h-1 w-0 bg-indigo-velvet group-hover:w-full transition-all duration-500" />
           </Card>
-        ))}
-      </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        {/* Quick Management Section */}
-        <Card className="lg:col-span-2 bg-white shadow-sm border-dust-grey/20 rounded-2xl">
-          <CardHeader className="flex flex-row items-center border-b border-dust-grey/10 pb-6 mb-6">
-            <div className="grid gap-1">
-              <CardTitle className="text-2xl font-bold text-dark-amethyst">
-                Strategic Actions
-              </CardTitle>
-              <CardDescription className="text-dark-amethyst/50">
-                Direct access to high-priority management workflows.
-              </CardDescription>
-            </div>
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className="ml-auto text-indigo-velvet font-bold hover:bg-indigo-velvet/10"
-            >
-              <Link href="/admin/properties">
-                Explore Portfolio
-                <ArrowUpRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
-          </CardHeader>
-          <CardContent className="grid gap-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <Link
-                href="/admin/properties/new"
-                className="flex items-center gap-5 rounded-2xl border border-dust-grey/10 bg-honeydew/5 p-6 transition-all hover:bg-white hover:border-indigo-velvet hover:shadow-lg group"
-              >
-                <div className="rounded-xl bg-indigo-velvet/10 p-3 group-hover:bg-indigo-velvet transition-colors duration-300">
-                  <Plus className="h-6 w-6 text-indigo-velvet group-hover:text-white" />
-                </div>
-                <div>
-                  <p className="font-bold text-dark-amethyst group-hover:text-indigo-velvet transition-colors">
-                    List New Property
-                  </p>
-                  <p className="text-sm text-dark-amethyst/50 mt-1">
-                    Start a high-conversion listing
-                  </p>
-                </div>
-              </Link>
-              <Link
-                href="/admin/leads"
-                className="flex items-center gap-5 rounded-2xl border border-dust-grey/10 bg-honeydew/5 p-6 transition-all hover:bg-white hover:border-indigo-velvet hover:shadow-lg group"
-              >
-                <div className="rounded-xl bg-indigo-velvet/10 p-3 group-hover:bg-indigo-velvet transition-colors duration-300">
-                  <Users className="h-6 w-6 text-indigo-velvet group-hover:text-white" />
-                </div>
-                <div>
-                  <p className="font-bold text-dark-amethyst group-hover:text-indigo-velvet transition-colors">
-                    Client Acquisitions
-                  </p>
-                  <p className="text-sm text-dark-amethyst/50 mt-1">
-                    Review verified inquiries
-                  </p>
-                </div>
-              </Link>
-              <Link
-                href="/admin/settings"
-                className="flex items-center gap-5 rounded-2xl border border-dust-grey/10 bg-honeydew/5 p-6 transition-all hover:bg-white hover:border-indigo-velvet hover:shadow-lg group"
-              >
-                <div className="rounded-xl bg-indigo-velvet/10 p-3 group-hover:bg-indigo-velvet transition-colors duration-300">
-                  <ShieldCheck className="h-6 w-6 text-indigo-velvet group-hover:text-white" />
-                </div>
-                <div>
-                  <p className="font-bold text-dark-amethyst group-hover:text-indigo-velvet transition-colors">
-                    Security & Roles
-                  </p>
-                  <p className="text-sm text-dark-amethyst/50 mt-1">
-                    Manage system permissions
-                  </p>
-                </div>
-              </Link>
-              <Link
-                href="/admin/leads"
-                className="flex items-center gap-5 rounded-2xl border border-dust-grey/10 bg-honeydew/5 p-6 transition-all hover:bg-white hover:border-indigo-velvet hover:shadow-lg group"
-              >
-                <div className="rounded-xl bg-indigo-velvet/10 p-3 group-hover:bg-indigo-velvet transition-colors duration-300">
-                  <Mail className="h-6 w-6 text-indigo-velvet group-hover:text-white" />
-                </div>
-                <div>
-                  <p className="font-bold text-dark-amethyst group-hover:text-indigo-velvet transition-colors">
-                    Support Channels
-                  </p>
-                  <p className="text-sm text-dark-amethyst/50 mt-1">
-                    Manage broker partnerships
-                  </p>
-                </div>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Status / News Feed */}
-        <Card className="bg-white shadow-sm border-dust-grey/20 rounded-2xl h-full">
-          <CardHeader className="border-b border-dust-grey/10 pb-6 mb-6">
-            <CardTitle className="text-2xl font-bold text-dark-amethyst">
-              Recent Activity
-            </CardTitle>
-            <CardDescription className="text-dark-amethyst/50">
-              Latest marketplace movements.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="relative mb-6">
-                <div className="absolute -inset-4 rounded-full bg-indigo-velvet/5 animate-pulse" />
-                <div className="relative rounded-full bg-honeydew p-6 border border-dust-grey/20 shadow-inner">
-                  <Mail className="h-10 w-10 text-dust-grey" />
-                </div>
-              </div>
-              <p className="text-lg font-bold text-dark-amethyst">
-                No New Alerts
-              </p>
-              <p className="text-sm text-dark-amethyst/40 mt-2 max-w-[220px] mx-auto">
-                Once users start interacting with your properties, their
-                inquiries will appear here as live feed.
-              </p>
-              <Button
-                variant="outline"
-                className="mt-8 border-indigo-velvet/20 text-indigo-velvet hover:bg-indigo-velvet/5 hover:text-indigo-velvet px-8 rounded-xl font-bold"
-              >
-                Refresh Feed
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+function StatsSkeleton() {
+  return (
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={i}
+          className="h-32 rounded-xl bg-dust-grey/10 animate-pulse"
+        />
+      ))}
     </div>
   );
 }

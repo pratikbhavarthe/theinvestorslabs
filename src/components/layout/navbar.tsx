@@ -21,12 +21,12 @@ export function Navbar() {
   ].map((link, index) => ({ ...link, id: index }));
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-honeydew transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo Area */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-16 w-48 md:h-20 md:w-72">
+            <div className="relative h-16 w-[180px]">
               <Image
                 src="/logo-removebg-preview.png"
                 alt="The Investor Labs"
@@ -43,7 +43,7 @@ export function Navbar() {
               <Link
                 key={link.id}
                 href={link.href}
-                className="text-dark-amethyst/60 hover:text-indigo-velvet font-bold uppercase tracking-[0.2em] transition-all text-[10px]"
+                className="text-dark font-extrabold uppercase tracking-widest transition-all hover:text-primary text-[12px]"
               >
                 {link.label}
               </Link>
@@ -55,12 +55,12 @@ export function Navbar() {
             <SignedOut>
               <Link
                 href="/sign-in"
-                className="text-dark-amethyst/60 hover:text-indigo-velvet font-bold uppercase tracking-[0.2em] text-[10px]"
+                className="text-dark font-extrabold uppercase tracking-widest text-[12px] hover:text-primary"
               >
                 Sign In
               </Link>
               <Link href="/consultation">
-                <InteractiveHoverButton className="bg-white">
+                <InteractiveHoverButton className="bg-white text-primary border border-primary">
                   Talk to Expert
                 </InteractiveHoverButton>
               </Link>
@@ -103,50 +103,23 @@ export function Navbar() {
                 <Link
                   key={link.id}
                   href={link.href}
-                  className="text-dark-amethyst/60 hover:text-indigo-velvet font-bold uppercase tracking-[0.2em] text-xs px-2 border-b border-dark-amethyst/5 py-2"
+                  className="text-2xl font-bold text-dark-amethyst"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-8 flex flex-col gap-4">
+              <div className="flex flex-col gap-4 mt-8">
                 <SignedOut>
-                  <Link
-                    href="/sign-in"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button
-                      variant="outline"
-                      className="w-full border-dark-amethyst/30 text-dark-amethyst h-14 rounded-xl font-bold uppercase tracking-widest text-[10px]"
-                    >
+                  <Link href="/sign-in">
+                    <Button className="w-full" variant="outline">
                       Sign In
                     </Button>
                   </Link>
-                  <Link
-                    href="/consultation"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <InteractiveHoverButton className="w-full bg-white">
-                      Talk to Expert
-                    </InteractiveHoverButton>
+                  <Link href="/consultation">
+                    <Button className="w-full">Talk to Expert</Button>
                   </Link>
                 </SignedOut>
-                <SignedIn>
-                  <Link
-                    href="/admin"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button
-                      variant="outline"
-                      className="w-full border-dark-amethyst/30 text-dark-amethyst h-14 rounded-xl font-bold uppercase tracking-widest text-[10px]"
-                    >
-                      Dashboard
-                    </Button>
-                  </Link>
-                  <div className="flex justify-center pt-4">
-                    <UserButton afterSignOutUrl="/" />
-                  </div>
-                </SignedIn>
               </div>
             </div>
           </div>

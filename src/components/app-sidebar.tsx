@@ -34,19 +34,9 @@ const data = {
       isActive: true,
     },
     {
-      title: "Portfolio Management",
+      title: "Manage Properties",
       url: "/admin/properties",
       icon: Building2,
-      items: [
-        {
-          title: "Asset Inventory",
-          url: "/admin/properties",
-        },
-        {
-          title: "New Acquisition",
-          url: "/admin/properties/new",
-        },
-      ],
     },
     {
       title: "Client Inquiries",
@@ -61,7 +51,7 @@ const data = {
       icon: Settings,
     },
     {
-      title: "Public Marketplace",
+      title: "Back to site",
       url: "/",
       icon: Home,
     },
@@ -79,25 +69,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar variant="inset" {...props} className="border-r-0 shadow-none">
-      <SidebarHeader className="bg-[#ADA8B6] pt-6 pb-4">
+    <Sidebar
+      variant="inset"
+      {...props}
+      className="border-r-0 shadow-none bg-white"
+    >
+      <SidebarHeader className="bg-white pt-4 pb-2 px-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               size="lg"
               asChild
-              className="hover:bg-dark-amethyst/5 transition-all"
+              className="hover:bg-transparent"
             >
-              <a href="/admin" className="flex items-center gap-3">
-                <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-dark-amethyst text-white shadow-lg shadow-dark-amethyst/20">
-                  <Sparkles className="size-5 fill-honeydew" />
+              <a href="/admin" className="flex items-center gap-3 pl-1">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-brand-primary text-white">
+                  <Sparkles className="size-4 fill-white" />
                 </div>
-                <div className="grid flex-1 text-left leading-tight">
-                  <span className="truncate font-bold text-dark-amethyst tracking-tight text-base">
+                <div className="grid flex-1 text-left leading-none">
+                  <span className="truncate font-semibold text-foreground tracking-tight text-sm">
                     The Investor Labs
                   </span>
-                  <span className="truncate text-[10px] uppercase font-bold tracking-widest text-dark-amethyst/50">
-                    Administrator
+                  <span className="truncate text-xs text-muted-foreground mt-0.5">
+                    Admin Console
                   </span>
                 </div>
               </a>
@@ -106,12 +100,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarContent className="bg-[#ADA8B6] px-2">
+      <SidebarContent className="bg-white px-2">
         <NavMain items={data.navMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto pb-4" />
       </SidebarContent>
 
-      <SidebarFooter className="bg-[#ADA8B6] border-t border-dark-amethyst/5 p-4">
+      <SidebarFooter className="bg-white border-t border-dust-grey/10 p-4">
         <NavUser user={userData} />
       </SidebarFooter>
       <SidebarRail />

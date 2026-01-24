@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
+import { AdminBreadcrumbs } from "@/components/admin/admin-breadcrumbs";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import { requireAdmin } from "@/lib/auth";
@@ -12,11 +12,11 @@ export default async function AdminLayout({
   await requireAdmin();
 
   return (
-    <SidebarProvider className="bg-white">
+    <SidebarProvider className="bg-honeydew/20">
       <AppSidebar variant="inset" />
-      <SidebarInset className="bg-white">
-        <SiteHeader />
-        <main className="flex flex-1 flex-col overflow-x-hidden">
+      <SidebarInset className="bg-muted/20">
+        <AdminBreadcrumbs />
+        <main className="flex flex-1 flex-col overflow-x-hidden p-6 md:p-8 max-w-7xl mx-auto w-full">
           {children}
         </main>
       </SidebarInset>

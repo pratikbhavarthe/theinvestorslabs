@@ -16,10 +16,10 @@ export function InteractiveHoverButton({
       {...props}
     >
       {/* Background Expansion Circle - Positioned Left (Subtle) */}
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-indigo-velvet transition-all duration-500 ease-in-out group-hover:scale-[500] group-hover:bg-dark-amethyst z-0"></div>
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-current transition-all duration-300 ease-out group-hover:scale-[100] group-hover:bg-brand-accent z-0"></div>
 
       <div className="relative z-10 flex items-center justify-center gap-2">
-        <span className="inline-block text-indigo-velvet transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0 uppercase tracking-widest text-[10px] ml-2">
+        <span className="inline-block text-current transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0 uppercase tracking-widest text-[10px] ml-2">
           {children}
         </span>
       </div>
